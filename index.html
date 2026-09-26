@@ -31,7 +31,6 @@ body{
   -webkit-tap-highlight-color:transparent;
 }
 
-/* Tinanggal na ang background photo para solid wine na lang at walang heart shape */
 #bg-solid{
   position:fixed; inset:0;
   background:var(--wine-950);
@@ -362,18 +361,6 @@ p.subtitle{
 }
 @keyframes spin{ to{ transform:rotate(360deg);} }
 
-.heart-burst{ position:fixed; inset:0; pointer-events:none; z-index:6; overflow:hidden; }
-.heart-burst span{
-  position:absolute; bottom:-10%;
-  font-size:1.4rem;
-  color:var(--blush-300);
-  opacity:.9;
-  animation:rise 3.2s ease-in forwards;
-}
-@keyframes rise{
-  to{ transform:translateY(-115vh) rotate(20deg); opacity:0; }
-}
-
 ::-webkit-scrollbar{ width:4px; }
 ::-webkit-scrollbar-thumb{ background:rgba(216,181,135,0.4); border-radius:4px; }
 </style>
@@ -408,7 +395,7 @@ p.subtitle{
 
   <!-- 2. LOCK -->
   <section class="screen" id="screen-lock">
-    <h1 class="title" style="font-size:clamp(1.8rem,6vw,2.6rem)">Happy Anniversary, Love! ❤️</h1>
+    <h1 class="title" style="font-size:clamp(1.8rem,6vw,2.6rem)">Happy Anniversary, Love!</h1>
     <p class="subtitle" id="lock-hint">Enter the date it all began</p>
     <div class="lock-card">
       <div class="code-display" id="code-display"></div>
@@ -455,17 +442,17 @@ p.subtitle{
           <div class="photo-strip-item"><img src="imagesphoto6.jpg" alt="photo6" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
         </div>
 
-        <div class="together-title">💖 We've been together for 💖</div>
+        <div class="together-title">We've been together for</div>
         <div class="timer-display" id="together-timer">Calculating...</div>
 
         <div class="quotes-group">
-          <div class="quote-line">You are the reason I smile so easily 💖</div>
-          <div class="quote-line">Everything feels better because of you 💖</div>
-          <div class="quote-line">I'll never stop choosing you 💖</div>
+          <div class="quote-line">You are the reason I smile so easily</div>
+          <div class="quote-line">Everything feels better because of you</div>
+          <div class="quote-line">I'll never stop choosing you</div>
         </div>
 
         <div class="personal-note">
-          I hope you're doing okay today. I'm always proud of you and I'll always stay by your side no matter how far we are from each other. Thank you for making me feel safe, loved, and happy every single day 💖
+          I hope you're doing okay today. I'm always proud of you and I'll always stay by your side no matter how far we are from each other. Thank you for making me feel safe, loved, and happy every single day
         </div>
       </div>
     </div>
@@ -588,21 +575,6 @@ function shakeDots(){
   setTimeout(()=>document.querySelectorAll('.code-dot').forEach(d=>d.classList.remove('shake')), 400);
 }
 
-function heartCelebration(){
-  const burst = document.createElement('div');
-  burst.className = 'heart-burst';
-  document.body.appendChild(burst);
-  for(let i=0;i<24;i++){
-    const s = document.createElement('span');
-    s.textContent = '♥';
-    s.style.left = Math.random()*100+'%';
-    s.style.animationDelay = (Math.random()*1.2)+'s';
-    s.style.fontSize = (1+Math.random()*1.4)+'rem';
-    burst.appendChild(s);
-  }
-  setTimeout(()=>burst.remove(), 3600);
-}
-
 const digits = ['1','2','3','4','5','6','7','8','9','','0','back'];
 digits.forEach(d=>{
   const btn = document.createElement('button');
@@ -621,7 +593,6 @@ digits.forEach(d=>{
       if(entered.length === CONFIG.passcode.length){
         if(entered === CONFIG.passcode){
           startMusicOnce();
-          heartCelebration();
           setTimeout(()=> showScreen('screen-menu'), 500);
         } else {
           shakeDots();
