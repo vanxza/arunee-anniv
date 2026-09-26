@@ -258,12 +258,12 @@ p.subtitle{
   display:flex; flex-direction:column; align-items:center;
 }
 
-/* ---------------- Love Letter Screen (Original style restored) ---------------- */
+/* ---------------- Love Letter Screen ---------------- */
 #screen-letter{
   position: absolute; inset: 0;
   background-image: linear-gradient(rgba(42, 13, 22, 0.5), rgba(42, 13, 22, 0.75)), url('imagesphoto3.jpg');
   background-size: cover;
-  background-position: center 30%;
+  background-position: center center;
 }
 
 .letter-text-free{
@@ -555,7 +555,6 @@ function showScreen(id){
   document.getElementById(id).classList.add('active');
 
   if (id === 'screen-song') {
-    startMusicOnce();
     if (ytid && !songEmbed.querySelector('iframe')) {
       songEmbed.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytid}?autoplay=1&enablejsapi=1" title="song" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
     }
@@ -564,7 +563,6 @@ function showScreen(id){
 
 document.querySelectorAll('.menu-item').forEach(item=>{
   item.addEventListener('click', ()=> {
-    startMusicOnce();
     showScreen(item.dataset.target);
   });
 });
@@ -586,7 +584,6 @@ document.querySelectorAll('.sub-screen-clickable').forEach(screen=>{
 const envelope = document.getElementById('envelope');
 document.getElementById('envelope-wrap').addEventListener('click', ()=>{
   if(envelope.classList.contains('open')) return;
-  startMusicOnce();
   envelope.classList.add('open');
   setTimeout(()=> showScreen('screen-lock'), 900);
 });
@@ -637,12 +634,12 @@ digits.forEach(d=>{
     btn.className = 'num-btn';
     btn.textContent = d;
     btn.addEventListener('click', ()=>{
-      startMusicOnce();
       if(entered.length >= CONFIG.passcode.length) return;
       entered += d;
       renderDots();
       if(entered.length === CONFIG.passcode.length){
         if(entered === CONFIG.passcode){
+          startMusicOnce(); // Awtomatikong tutugtog ang kanta pagkapasa ng password papuntang menu
           heartCelebration();
           setTimeout(()=> showScreen('screen-menu'), 500);
         } else {
