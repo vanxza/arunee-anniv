@@ -39,11 +39,10 @@ body{
   filter:saturate(0.9);
   transition: opacity 0.5s ease;
 }
+/* Tinanggal na ang heart/radial gradient sa background tint para plain at malinis na */
 #bg-tint{
   position:fixed; inset:0;
-  background:
-    radial-gradient(circle at 30% 20%, rgba(216,181,135,0.18), transparent 45%),
-    linear-gradient(180deg, rgba(42,13,22,0.55), rgba(42,13,22,0.88));
+  background: linear-gradient(180deg, rgba(42,13,22,0.65), rgba(42,13,22,0.92));
   z-index:1;
   transition: opacity 0.5s ease;
 }
@@ -88,7 +87,7 @@ p.subtitle{
   font-style:italic;
 }
 
-/* ---------------- Envelope & Burgundy Letter Inside (Wala nang malaking heart sa gitna) ---------------- */
+/* ---------------- Envelope & Burgundy Letter Inside ---------------- */
 .envelope-wrap{ cursor:pointer; user-select:none; }
 .envelope{
   position:relative;
@@ -134,11 +133,6 @@ p.subtitle{
   justify-content:center;
   padding:12px 14px;
   color: var(--gold-200);
-}
-.letter-peek-heart{
-  font-size: 1.4rem;
-  color: var(--gold-400);
-  margin-bottom: 2px;
 }
 .letter-peek-line{
   width: 70%;
@@ -258,7 +252,7 @@ p.subtitle{
   display:flex; flex-direction:column; align-items:center;
 }
 
-/* ---------------- Love Letter Screen (Binalik sa dating sukat/default size ang bg photo 3) ---------------- */
+/* ---------------- Love Letter Screen ---------------- */
 #screen-letter{
   position: absolute; inset: 0;
   background-image: linear-gradient(rgba(42, 13, 22, 0.5), rgba(42, 13, 22, 0.75)), url('imagesphoto3.jpg');
@@ -414,7 +408,6 @@ p.subtitle{
         <div class="env-tri env-tri-bottom"></div>
         
         <div class="letter-peek">
-          <div class="letter-peek-heart">&#9825;</div>
           <div class="letter-peek-line"></div>
           <div class="letter-peek-line" style="width:50%;"></div>
         </div>
@@ -543,7 +536,6 @@ const songEmbed = document.getElementById('song-embed');
 const ytid = youtubeId(CONFIG.songYouTubeUrl);
 let musicStarted = false;
 
-// Iisang YouTube player na lang at nagre-render/autoplay pagkatapos i-type ang passcode
 function startMusicOnce() {
   if (!musicStarted && ytid) {
     musicStarted = true;
@@ -640,7 +632,7 @@ digits.forEach(d=>{
       renderDots();
       if(entered.length === CONFIG.passcode.length){
         if(entered === CONFIG.passcode){
-          startMusicOnce(); // Dito nag-a-autoplay ang kanta pagkatapos ilagay ang tamang passcode papuntang menu
+          startMusicOnce();
           heartCelebration();
           setTimeout(()=> showScreen('screen-menu'), 500);
         } else {
