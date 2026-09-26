@@ -271,7 +271,7 @@ p.subtitle{
   display:flex; flex-direction:column; align-items:center;
 }
 
-/* ---------------- Love Letter Screen (Direct Text Flow over photo3 BG) ---------------- */
+/* ---------------- Love Letter Screen (Scrollable Box over photo3 BG) ---------------- */
 #screen-letter{
   position: absolute; inset: 0;
   background-image: linear-gradient(rgba(42, 13, 22, 0.65), rgba(42, 13, 22, 0.75)), url('imagesphoto3.jpg');
@@ -279,18 +279,28 @@ p.subtitle{
   background-position: center;
 }
 
+.letter-box-container{
+  background: rgba(42, 13, 22, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(216, 181, 135, 0.4);
+  border-radius: 20px;
+  padding: 24px 22px;
+  max-width: 680px;
+  width: 100%;
+  max-height: 72vh;
+  overflow-y: auto;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+  text-align: left;
+  margin-top: 10px;
+}
+
 .letter-text-free{
-  width:100%;
-  max-width:760px;
-  margin:0 auto;
-  font-size:clamp(1.15rem, 3.4vw, 1.45rem);
-  line-height:1.85;
-  text-align:left;
-  white-space:pre-line;
+  font-size: clamp(1.05rem, 3.2vw, 1.25rem);
+  line-height: 1.8;
+  white-space: pre-line;
   color: var(--burgundy-light);
   font-weight: 500;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.85);
-  padding: 10px 12px 40px;
 }
 
 /* ---------------- Icon 1 Layout ---------------- */
@@ -404,7 +414,8 @@ p.subtitle{
   to{ transform:translateY(-115vh) rotate(20deg); opacity:0; }
 }
 
-::-webkit-scrollbar{ width:0; }
+::-webkit-scrollbar{ width:4px; }
+::-webkit-scrollbar-thumb{ background:rgba(216,181,135,0.4); border-radius:4px; }
 </style>
 </head>
 <body>
@@ -455,37 +466,39 @@ p.subtitle{
     <p class="subtitle" id="menu-subtitle">Another chapter down, forever to go</p>
     <div class="menu-grid">
       <div class="menu-item" data-target="screen-gallery">
-        <img class="menu-icon-img" src="imagesphoto7.jpg" alt="Photo 7" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'%23fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>📷</text></svg>'">
+        <img class="menu-icon-img" src="imagesphoto7.jpg" alt="Photo 7" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>📷</text></svg>'">
       </div>
       <div class="menu-item" data-target="screen-letter">
-        <img class="menu-icon-img" src="imagesphoto8.jpg" alt="Photo 8" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'%23fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>💌</text></svg>'">
+        <img class="menu-icon-img" src="imagesphoto8.jpg" alt="Photo 8" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>💌</text></svg>'">
       </div>
       <div class="menu-item" data-target="screen-song">
-        <img class="menu-icon-img" src="imagesphoto9.jpg" alt="Photo 9" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'%23fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🎵</text></svg>'">
+        <img class="menu-icon-img" src="imagesphoto9.jpg" alt="Photo 9" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🎵</text></svg>'">
       </div>
     </div>
   </section>
 
-  <!-- 4. LETTER (No box - breathing freely over photo 3 BG) -->
+  <!-- 4. LETTER (Scrollable box container over photo 3 BG) -->
   <section class="screen sub-screen-clickable" id="screen-letter" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <div class="sub-scroll">
-      <h1 class="title" style="font-size:clamp(1.8rem,5.5vw,2.5rem); margin-bottom:20px; text-shadow:0 2px 6px rgba(0,0,0,0.8);">My love letter</h1>
-      <div class="letter-text-free" id="letter-text"></div>
+      <h1 class="title" style="font-size:clamp(1.8rem,5.5vw,2.3rem); margin-bottom:14px; text-shadow:0 2px 6px rgba(0,0,0,0.8);">Letter for My Future Husband</h1>
+      <div class="letter-box-container">
+        <div class="letter-text-free" id="letter-text"></div>
+      </div>
     </div>
   </section>
 
-  <!-- 5. ICON 1 SCREEN -->
+  <!-- 5. ICON 1 SCREEN (Photos 2-6 with robust fallbacks) -->
   <section class="screen sub-screen-clickable" id="screen-gallery" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <div class="sub-scroll">
       <div class="together-card">
         <div class="photo-strip">
-          <div class="photo-strip-item"><img src="imagesphoto2.jpg" alt="photo2" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/><text x=\'50%\' y=\'50%\' fill=\'%23f3cdd4\' font-size=\'28\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖</text></svg>'"></div>
-          <div class="photo-strip-item"><img src="imagesphoto3.jpg" alt="photo3" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/><text x=\'50%\' y=\'50%\' fill=\'%23f3cdd4\' font-size=\'28\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖</text></svg>'"></div>
-          <div class="photo-strip-item"><img src="imagesphoto4.jpg" alt="photo4" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/><text x=\'50%\' y=\'50%\' fill=\'%23f3cdd4\' font-size=\'28\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖</text></svg>'"></div>
-          <div class="photo-strip-item"><img src="imagesphoto5.jpg" alt="photo5" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/><text x=\'50%\' y=\'50%\' fill=\'%23f3cdd4\' font-size=\'28\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖</text></svg>'"></div>
-          <div class="photo-strip-item"><img src="imagesphoto6.jpg" alt="photo6" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/><text x=\'50%\' y=\'50%\' fill=\'%23f3cdd4\' font-size=\'28\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖</text></svg>'"></div>
+          <div class="photo-strip-item"><img src="imagesphoto2.jpg" alt="photo2" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/><text x=\'50%\' y=\'50%\' fill=\'%23f3cdd4\' font-size=\'28\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖 2</text></svg>'"></div>
+          <div class="photo-strip-item"><img src="imagesphoto3.jpg" alt="photo3" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/><text x=\'50%\' y=\'50%\' fill=\'%23f3cdd4\' font-size=\'28\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖 3</text></svg>'"></div>
+          <div class="photo-strip-item"><img src="imagesphoto4.jpg" alt="photo4" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/><text x=\'50%\' y=\'50%\' fill=\'%23f3cdd4\' font-size=\'28\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖 4</text></svg>'"></div>
+          <div class="photo-strip-item"><img src="imagesphoto5.jpg" alt="photo5" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/><text x=\'50%\' y=\'50%\' fill=\'%23f3cdd4\' font-size=\'28\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖 5</text></svg>'"></div>
+          <div class="photo-strip-item"><img src="imagesphoto6.jpg" alt="photo6" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/><text x=\'50%\' y=\'50%\' fill=\'%23f3cdd4\' font-size=\'28\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖 6</text></svg>'"></div>
         </div>
 
         <div class="together-title">💖 We've been together for 💖</div>
@@ -504,10 +517,10 @@ p.subtitle{
     </div>
   </section>
 
-  <!-- 6. SONG (3rd Icon with YouTube Embed) -->
+  <!-- 6. SONG (3rd Icon with requested YouTube URL & Autoplay) -->
   <section class="screen sub-screen-clickable" id="screen-song" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
-    <h1 class="title" id="song-title" style="font-size:clamp(1.6rem,5vw,2.2rem)">Love - Lana Del Rey</h1>
+    <h1 class="title" id="song-title" style="font-size:clamp(1.6rem,5vw,2.2rem)">Our Special Song</h1>
     <div class="vinyl"></div>
     <div class="song-embed" id="song-embed"></div>
   </section>
@@ -524,7 +537,7 @@ const CONFIG = {
   startDate: new Date(2025, 8, 26, 10, 13, 0),
 
   letter:
-`Happy anniversary, love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so, so much.
+`Happy anniversary, lovey! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much.
 
 I hope you’re always safe and doing well. Time really flies so fast, huh? It feels like just yesterday, and now we’re already celebrating another year together.
 
@@ -536,8 +549,8 @@ I hope we continue to choose each other, understand each other, and grow togethe
 
 I love you always, love. Happy anniversary!`,
 
-  songTitle: "Love - Lana Del Rey",
-  songYouTubeUrl: "https://www.youtube.com/watch?v=3x3S4w1334A"
+  songTitle: "Our Special Song",
+  songYouTubeUrl: "https://youtu.be/3-NTv0CdFCk"
 };
 
 document.getElementById('hero-title').textContent = CONFIG.title;
@@ -548,7 +561,7 @@ document.getElementById('lock-hint').textContent = CONFIG.lockHint;
 document.getElementById('letter-text').textContent = CONFIG.letter;
 document.getElementById('song-title').textContent = CONFIG.songTitle;
 
-// Extract YouTube Video ID
+// Extract YouTube Video ID (supports youtu.be and youtube.com)
 function youtubeId(url){
   const m = url.match(/(?:youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{11})/);
   return m ? m[1] : null;
@@ -556,34 +569,22 @@ function youtubeId(url){
 
 const songEmbed = document.getElementById('song-embed');
 const ytid = youtubeId(CONFIG.songYouTubeUrl);
-if (ytid) {
-  songEmbed.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytid}" title="song" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-}
-
-function updateTimer() {
-  const now = new Date();
-  const diff = now - CONFIG.startDate;
-
-  if (diff < 0) {
-    document.getElementById('together-timer').textContent = "0 days 0 hours 0 minutes 0 seconds";
-    return;
-  }
-
-  const seconds = Math.floor((diff / 1000) % 60);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-  document.getElementById('together-timer').textContent = 
-    `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
-}
-
-setInterval(updateTimer, 1000);
-updateTimer();
 
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+
+  // Handle autoplay when entering song screen
+  if (id === 'screen-song') {
+    if (ytid) {
+      songEmbed.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytid}?autoplay=1&enablejsapi=1" title="song" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    }
+  } else {
+    // Stop music when leaving song screen
+    if (id === 'screen-menu') {
+      songEmbed.innerHTML = '';
+    }
+  }
 }
 
 document.querySelectorAll('.menu-item').forEach(item=>{
@@ -676,6 +677,27 @@ digits.forEach(d=>{
   numpad.appendChild(btn);
 });
 renderDots();
+
+function updateTimer() {
+  const now = new Date();
+  const diff = now - CONFIG.startDate;
+
+  if (diff < 0) {
+    document.getElementById('together-timer').textContent = "0 days 0 hours 0 minutes 0 seconds";
+    return;
+  }
+
+  const seconds = Math.floor((diff / 1000) % 60);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  document.getElementById('together-timer').textContent = 
+    `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
 </script>
 </body>
 </html>
