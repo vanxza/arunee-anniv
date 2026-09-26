@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Leaflet CSS para sa Interactive Map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 
 <style>
 :root{
@@ -189,16 +191,17 @@ p.subtitle{
 
 /* ---------------- Menu ---------------- */
 .menu-grid{
-  display:flex; gap:clamp(18px,6vw,44px);
+  display:flex; gap:clamp(14px,5vw,30px);
   flex-wrap:wrap; justify-content:center;
-  max-width:520px;
+  max-width:580px;
 }
 .menu-item{
   cursor:pointer;
   display:flex; flex-direction:column; align-items:center;
+  width: 90px;
 }
 .menu-icon-img{
-  width:84px; height:84px;
+  width:74px; height:74px;
   border-radius:50%;
   object-fit:cover;
   border:2px solid var(--gold-400);
@@ -207,12 +210,22 @@ p.subtitle{
   animation:gentleFloat 2.8s ease-in-out infinite;
 }
 .menu-item:nth-child(1) .menu-icon-img{ animation-delay:0s; }
-.menu-item:nth-child(2) .menu-icon-img{ animation-delay:0.4s; }
-.menu-item:nth-child(3) .menu-icon-img{ animation-delay:0.8s; }
+.menu-item:nth-child(2) .menu-icon-img{ animation-delay:0.3s; }
+.menu-item:nth-child(3) .menu-icon-img{ animation-delay:0.6s; }
+.menu-item:nth-child(4) .menu-icon-img{ animation-delay:0.9s; }
+
+.menu-label{
+  font-family:'Jost', sans-serif;
+  font-size: 0.75rem;
+  color: var(--blush-300);
+  margin-top: 6px;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
 
 @keyframes gentleFloat{
   0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-8px) rotate(2deg); }
+  50% { transform: translateY(-6px) rotate(2deg); }
 }
 .menu-item:hover .menu-icon-img{
   transform: scale(1.1) translateY(-4deg);
@@ -262,7 +275,7 @@ p.subtitle{
   padding: 10px 12px 50px;
 }
 
-/* ---------------- Icon 1 Layout ---------------- */
+/* ---------------- Gallery Layout ---------------- */
 .together-card{
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
@@ -333,6 +346,49 @@ p.subtitle{
   line-height: 1.5;
   color: #f8ecee;
   max-width: 580px;
+}
+
+/* ---------------- Interactive Map Screen ---------------- */
+.map-container-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 18px 14px;
+  max-width: 560px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#map {
+  width: 100%;
+  height: 320px;
+  border-radius: 14px;
+  margin: 15px 0;
+  border: 1px solid var(--gold-400);
+  z-index: 1;
+}
+
+.map-info-box {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+  color: var(--blush-300);
+  text-align: center;
+  margin-top: 5px;
+}
+
+/* Custom Marker Styling para sa Pictures ninyo sa Map */
+.custom-map-marker {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-400);
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  background: var(--wine-800);
 }
 
 .song-embed{
@@ -422,13 +478,20 @@ p.subtitle{
     <p class="subtitle" id="menu-subtitle">Another chapter down, forever to go</p>
     <div class="menu-grid">
       <div class="menu-item" data-target="screen-gallery">
-        <img class="menu-icon-img" src="imagesphoto7.jpg" alt="Photo 7" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>📷</text></svg>'">
+        <img class="menu-icon-img" src="imagesphoto7.jpg" alt="Gallery" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>📷</text></svg>'">
+        <div class="menu-label">Gallery</div>
       </div>
       <div class="menu-item" data-target="screen-letter">
-        <img class="menu-icon-img" src="imagesphoto8.jpg" alt="Photo 8" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>💌</text></svg>'">
+        <img class="menu-icon-img" src="imagesphoto8.jpg" alt="Letter" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>💌</text></svg>'">
+        <div class="menu-label">Letter</div>
+      </div>
+      <div class="menu-item" data-target="screen-distance">
+        <img class="menu-icon-img" src="imagesphoto10.jpg" alt="Map" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🗺️</text></svg>'">
+        <div class="menu-label">Our Map</div>
       </div>
       <div class="menu-item" data-target="screen-song">
-        <img class="menu-icon-img" src="imagesphoto9.jpg" alt="Photo 9" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🎵</text></svg>'">
+        <img class="menu-icon-img" src="imagesphoto9.jpg" alt="Song" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🎵</text></svg>'">
+        <div class="menu-label">Our Song</div>
       </div>
     </div>
   </section>
@@ -442,7 +505,7 @@ p.subtitle{
     </div>
   </section>
 
-  <!-- 5. ICON 1 SCREEN -->
+  <!-- 5. GALLERY SCREEN -->
   <section class="screen sub-screen-clickable" id="screen-gallery" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <div class="sub-scroll">
@@ -464,13 +527,30 @@ p.subtitle{
         </div>
 
         <div class="personal-note">
-         I hope youre safe as always, I'm always proud of you love, and I cant wait to spend the rest of my life with you ‎𖹭
+          I hope you're safe as always, I'm always proud of you love, and I can't wait to spend the rest of my life with you
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 6. SONG -->
+  <!-- 6. INTERACTIVE MAP SCREEN (Kuala Lumpur & Bacacay) -->
+  <section class="screen sub-screen-clickable" id="screen-distance" data-back="screen-menu">
+    <div class="back-btn" data-back="screen-menu">&#8592;</div>
+    <div class="sub-scroll">
+      <div class="map-container-card">
+        <h1 class="title" style="font-size:clamp(1.6rem,4.5vw,2.2rem); margin-bottom:2px;">Our World Map</h1>
+        <p class="subtitle" style="margin-bottom:5px; font-size:0.9rem;">Tap our pictures on the map to see the distance</p>
+        
+        <div id="map"></div>
+
+        <div class="map-info-box" id="map-distance-text">
+          Calculating distance between Kuala Lumpur and Bacacay...
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. SONG -->
   <section class="screen sub-screen-clickable" id="screen-song" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <h1 class="title" id="song-title" style="font-size:clamp(1.6rem,5vw,2.2rem)">Our Special Song</h1>
@@ -479,6 +559,9 @@ p.subtitle{
   </section>
 
 </div>
+
+<!-- Leaflet JS para sa Interactive Map -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <script>
 const CONFIG = {
@@ -489,9 +572,17 @@ const CONFIG = {
 
   startDate: new Date(2025, 8, 26, 10, 13, 0),
 
+  // Coordinates para sa inyong dalawa:
+  // Partner: Kuala Lumpur, Malaysia
+  partnerLoc: { lat: 3.1390, lng: 101.6869, name: "Kuala Lumpur, Malaysia (You)", img: "imagesphoto2.jpg" },
+  // Ikaw: Bacacay, Albay, Philippines
+  myLoc: { lat: 13.3854, lng: 123.7295, name: "Bacacay, Albay, Philippines (Me)", img: "imagesphoto3.jpg" },
+
   letter:
 `Happy anniversary love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much. 
+
 I hope you’re always safe and doing well. Time really flies so fast, huh? It feels like just yesterday, and now we’re already celebrating another year together.
+
 I’m so proud of how much you’ve grown and improved throughout this year. I’ve seen how hard you’ve worked, how you’ve handled everything, and how you’ve kept going even when things weren’t easy. I’m really proud of the person you’re becoming.
 
 Thank you for staying with me through everything, for loving me, and for being part of my life. I’m grateful for every memory we’ve made, every laugh, every late-night call, and even the difficult moments because they helped us grow together.
@@ -512,6 +603,68 @@ document.getElementById('lock-hint').textContent = CONFIG.lockHint;
 document.getElementById('letter-text').textContent = CONFIG.letter;
 document.getElementById('song-title').textContent = CONFIG.songTitle;
 
+// Formula para makuha ang exact distance sa pagitan ng dalawang lat/lng (Haversine formula)
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Radius ng Earth sa km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return Math.round(R * c);
+}
+
+const distKm = calculateDistance(CONFIG.partnerLoc.lat, CONFIG.partnerLoc.lng, CONFIG.myLoc.lat, CONFIG.myLoc.lng);
+document.getElementById('map-distance-text').innerHTML = `<b>Distansya natin:</b> Mahigit ${distKm} kilometers ang layo, pero iisa ang ating puso! ❤️`;
+
+// Initialize Leaflet Map
+let map = null;
+function initMap() {
+  if (map) return;
+  // Center map sa gitna ng Malaysia at Pilipinas
+  map = L.map('map', { zoomControl: false }).setView([8.2, 112.7], 5);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
+
+  // Custom Icon para kay Partner (Kuala Lumpur)
+  const partnerIcon = L.divIcon({
+    className: 'custom-div-icon',
+    html: `<img src="${CONFIG.partnerLoc.img}" class="custom-map-marker" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'50\\' height=\\'50\\'><circle cx=\\'25\\' cy=\\'25\\' r=\\'20\\' fill=\\'%237c2438\\'/></svg>'">`,
+    iconSize: [44, 44],
+    iconAnchor: [22, 22]
+  });
+
+  // Custom Icon para sa iyo (Bacacay, Albay)
+  const myIcon = L.divIcon({
+    className: 'custom-div-icon',
+    html: `<img src="${CONFIG.myLoc.img}" class="custom-map-marker" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'50\\' height=\\'50\\'><circle cx=\\'25\\' cy=\\'25\\' r=\\'20\\' fill=\\'%237c2438\\'/></svg>'">`,
+    iconSize: [44, 44],
+    iconAnchor: [22, 22]
+  });
+
+  // Lagyan ng markers ang mapa
+  const marker1 = L.marker([CONFIG.partnerLoc.lat, CONFIG.partnerLoc.lng], { icon: partnerIcon }).addTo(map);
+  marker1.bindPopup(`<b>${CONFIG.partnerLoc.name}</b><br>Dito ka ngayon, mahal ko.`);
+
+  const marker2 = L.marker([CONFIG.myLoc.lat, CONFIG.myLoc.lng], { icon: myIcon }).addTo(map);
+  marker2.bindPopup(`<b>${CONFIG.myLoc.name}</b><br>Dito naman ako naghihintay sa iyo.`);
+
+  // Gumuhit ng linya sa pagitan ng dalawa para makita ang koneksyon
+  const latlngs = [
+    [CONFIG.partnerLoc.lat, CONFIG.partnerLoc.lng],
+    [CONFIG.myLoc.lat, CONFIG.myLoc.lng]
+  ];
+  const polyline = L.polyline(latlngs, {color: '#d8b587', weight: 3, dashArray: '5, 10'}).addTo(map);
+  
+  // I-fit ang view sa dalawang markers
+  map.fitBounds(polyline.getBounds(), { padding: [50, 50] });
+}
+
 function youtubeId(url){
   const m = url.match(/(?:youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{11})/);
   return m ? m[1] : null;
@@ -531,6 +684,13 @@ function startMusicOnce() {
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+
+  if (id === 'screen-distance') {
+    setTimeout(() => {
+      initMap();
+      if(map) map.invalidateSize();
+    }, 200);
+  }
 
   if (id === 'screen-song') {
     if (ytid && !songEmbed.querySelector('iframe')) {
@@ -554,7 +714,7 @@ document.querySelectorAll('.back-btn').forEach(btn=>{
 
 document.querySelectorAll('.sub-screen-clickable').forEach(screen=>{
   screen.addEventListener('click', (e)=>{
-    if(e.target.tagName.toLowerCase() === 'iframe') return;
+    if(e.target.tagName.toLowerCase() === 'iframe' || e.target.closest('.leaflet-container')) return;
     showScreen(screen.dataset.back);
   });
 });
