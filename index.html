@@ -200,16 +200,13 @@ p.subtitle{
 .quote-line{ font-size:clamp(1rem, 2.8vw, 1.2rem); color:#f1e4e8; }
 .personal-note{ font-size:clamp(0.92rem, 2.5vw, 1.1rem); line-height:1.5; color:#f8ecee; max-width:580px; }
 
-/* TikTok Zoom Map */
+/* Map */
 #screen-distance { padding: 0 !important; overflow: hidden; }
 #map { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; background: #111; }
-.tiktok-map-overlay { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; text-align: center; padding: 20px; }
-.tiktok-cursive-text { font-family: 'Beau Rivage', cursive; font-size: clamp(2.5rem, 9vw, 4.5rem); color: var(--gold-200); line-height: 1.15; text-shadow: 0 4px 15px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.9); animation: floatText 3s ease-in-out infinite; }
-@keyframes floatText { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.02); } }
 .map-control-banner { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); z-index: 5; background: rgba(42, 13, 22, 0.85); border: 1px solid var(--gold-400); padding: 10px 18px; border-radius: 30px; backdrop-filter: blur(8px); font-family: 'Jost', sans-serif; font-size: 0.85rem; color: var(--blush-300); box-shadow: 0 10px 25px rgba(0,0,0,0.5); text-align: center; max-width: 90%; }
 .custom-map-marker { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold-400); object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.6); background: var(--wine-800); }
 
-/* Reasons Jar */
+/* Reasons Jar with Pop Animation */
 .jar-container { width:100%; max-width:500px; display:flex; flex-direction:column; align-items:center; }
 .jar-card {
   background: rgba(255, 255, 255, 0.08); border: 1px solid var(--gold-400);
@@ -334,15 +331,15 @@ p.subtitle{
         <div class="menu-label">Letter</div>
       </div>
       <div class="menu-item" data-target="screen-distance">
-        <img class="menu-icon-img" src="imagesphoto10.jpg" alt="Map" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🗺️</text></svg>'">
+        <img class="menu-icon-img" src="imagesphoto15.jpg" alt="Map" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🗺️</text></svg>'">
         <div class="menu-label">Live Map</div>
       </div>
       <div class="menu-item" data-target="screen-reasons">
-        <img class="menu-icon-img" src="imagesphoto4.jpg" alt="Reasons" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖</text></svg>'">
+        <img class="menu-icon-img" src="imagesphoto14.jpg" alt="Reasons" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖</text></svg>'">
         <div class="menu-label">Why I Love You</div>
       </div>
       <div class="menu-item" data-target="screen-bucket">
-        <img class="menu-icon-img" src="imagesphoto5.jpg" alt="Bucket List" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>✈️</text></svg>'">
+        <img class="menu-icon-img" src="imagesphoto13.jpg" alt="Bucket List" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>✈️</text></svg>'">
         <div class="menu-label">Bucket List</div>
       </div>
       <div class="menu-item" data-target="screen-song">
@@ -386,13 +383,10 @@ p.subtitle{
     </div>
   </section>
 
-  <!-- 6. TIKTOK STYLE ZOOM MAP -->
+  <!-- 6. LIVE MAP (Cleaned Map View) -->
   <section class="screen" id="screen-distance">
     <div class="back-btn" data-back="screen-menu" style="z-index: 10;">&#8592;</div>
     <div id="map"></div>
-    <div class="tiktok-map-overlay">
-      <div class="tiktok-cursive-text">long distance<br>and we're<br>still together</div>
-    </div>
     <div class="map-control-banner" id="map-distance-text">
       <b>Distance:</b> Calculating...
     </div>
@@ -457,7 +451,7 @@ const CONFIG = {
   myImg: "imagesphoto3.jpg",
   partnerImg: "imagesphoto2.jpg",
 
-  letter: `Happy anniversary love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much. \n\nI hope you’re always safe and doing well. Time really flies so fast, huh? It feels like just yesterday, and now we’re already celebrating another year together.\n\nI’m so proud of how much you’ve grown and improved throughout this year. I’ve seen how hard you’ve worked, how you’ve handled everything, and how you’ve kept going even when things weren’t easy. I’m really proud of the person you’re becoming.\n\nThank you for staying with me through everything, for loving me, and for being part of my life. I’m grateful for every memory we’ve made, every laugh, every late-night call, and even the difficult moments because they helped us grow together.\n\nI hope we continue to choose each other, understand each other, and grow together. No matter what happens, I’ll always be rooting for you and supporting you. Here’s to more memories, more adventures, more laughs, and more years with you.\n\nI love you always, Hubby. Happy anniversary!`,
+  letter: `Happy anniversary, love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much. \n\nI hope you’re always safe and doing well. Time really flies so fast, huh? It feels like just yesterday, and now we’re already celebrating another year together.\n\nI’m so proud of how much you’ve grown and improved throughout this year. I’ve seen how hard you’ve worked, how you’ve handled everything, and how you’ve kept going even when things weren’t easy. I’m really proud of the person you’re becoming.\n\nThank you for staying with me through everything, for loving me, and for being part of my life. I’m grateful for every memory we’ve made, every laugh, every late-night call, and even the difficult moments because they helped us grow together.\n\nI hope we continue to choose each other, understand each other, and grow together. No matter what happens, I’ll always be rooting for you and supporting you. Here’s to more memories, more adventures, more laughs, and more years with you.\n\nI love you always, Hubby. Happy anniversary!`,
 
   reasons: [
     "Your soothing voice whenever we talk on our video calls.",
@@ -466,8 +460,8 @@ const CONFIG = {
     "Your patience and understanding during tough moments.",
     "The little updates you send me throughout your day.",
     "How safe and loved I feel whenever I'm with you.",
-    "Your kindness and genuine heart toward others.",
-    "The way you look at me and make me feel like the luckiest person.",
+    "Your smile is so cute and it instantly brightens my day.",
+    "How sweet and compassionate you are towards animals.",
     "Every single random joke and laugh we share.",
     "Simply because you are you, and you're my favorite person."
   ],
@@ -545,12 +539,18 @@ function initTikTokZoomMap() {
     `<b>Distance:</b> Around <b>${distMiles.toLocaleString()} miles</b> apart, but forever together! ❤️`;
 }
 
-// Reasons Jar Logic
+// Reasons Jar Logic with Pop Animation
 let currentReasonIdx = 0;
 function renderReason() {
+  const card = document.querySelector('.jar-card');
+  card.classList.remove('pop-anim');
+  void card.offsetWidth; 
+  card.classList.add('pop-anim');
+
   document.getElementById('reason-num').textContent = `Reason #${currentReasonIdx + 1} of ${CONFIG.reasons.length}`;
   document.getElementById('reason-content').textContent = `"${CONFIG.reasons[currentReasonIdx]}"`;
 }
+
 document.getElementById('next-reason-btn').addEventListener('click', (e) => {
   e.stopPropagation();
   currentReasonIdx = (currentReasonIdx + 1) % CONFIG.reasons.length;
