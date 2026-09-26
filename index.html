@@ -216,6 +216,16 @@ p.subtitle{
   border-radius: 16px; padding: 24px; width: 100%; min-height: 160px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   box-shadow: 0 8px 24px rgba(0,0,0,0.3); margin-bottom: 20px; position: relative;
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
+}
+.jar-card.pop-anim {
+  animation: paperPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes paperPop {
+  0% { transform: scale(0.8) translateY(15px); opacity: 0; }
+  50% { transform: scale(1.05) translateY(-5px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
 }
 .reason-number { font-family:'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--gold-400); margin-bottom: 10px; }
 .reason-text { font-size: clamp(1.1rem, 3.5vw, 1.35rem); color: var(--cream-100); line-height: 1.5; font-style: italic; }
@@ -447,7 +457,7 @@ const CONFIG = {
   myImg: "imagesphoto3.jpg",
   partnerImg: "imagesphoto2.jpg",
 
-  letter: `Happy anniversary, love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much. \n\nI hope you’re always safe and doing well. Time really flies so fast, huh? It feels like just yesterday, and now we’re already celebrating another year together.\n\nI’m so proud of how much you’ve grown and improved throughout this year. I’ve seen how hard you’ve worked, how you’ve handled everything, and how you’ve kept going even when things weren’t easy. I’m really proud of the person you’re becoming.\n\nThank you for staying with me through everything, for loving me, and for being part of my life. I’m grateful for every memory we’ve made, every laugh, every late-night call, and even the difficult moments because they helped us grow together.\n\nI hope we continue to choose each other, understand each other, and grow together. No matter what happens, I’ll always be rooting for you and supporting you. Here’s to more memories, more adventures, more laughs, and more years with you.\n\nI love you always, Hubby. Happy anniversary!`,
+  letter: `Happy anniversary love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much. \n\nI hope you’re always safe and doing well. Time really flies so fast, huh? It feels like just yesterday, and now we’re already celebrating another year together.\n\nI’m so proud of how much you’ve grown and improved throughout this year. I’ve seen how hard you’ve worked, how you’ve handled everything, and how you’ve kept going even when things weren’t easy. I’m really proud of the person you’re becoming.\n\nThank you for staying with me through everything, for loving me, and for being part of my life. I’m grateful for every memory we’ve made, every laugh, every late-night call, and even the difficult moments because they helped us grow together.\n\nI hope we continue to choose each other, understand each other, and grow together. No matter what happens, I’ll always be rooting for you and supporting you. Here’s to more memories, more adventures, more laughs, and more years with you.\n\nI love you always, Hubby. Happy anniversary!`,
 
   reasons: [
     "Your soothing voice whenever we talk on our video calls.",
