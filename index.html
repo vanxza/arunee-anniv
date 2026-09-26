@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 
 <style>
 :root{
@@ -31,17 +33,12 @@ body{
   -webkit-tap-highlight-color:transparent;
 }
 
-#bg-solid{
-  position:fixed; inset:0;
-  background:var(--wine-950);
-  z-index:0;
-}
+#bg-solid{ position:fixed; inset:0; background:var(--wine-950); z-index:0; }
 
 #app{
   position:relative; z-index:2;
   height:100vh; height:100dvh;
   width:100%;
-  padding: env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);
 }
 
 .screen{
@@ -57,9 +54,7 @@ body{
 }
 .screen.active{ display:flex; opacity:1; }
 
-.sub-screen-clickable {
-  cursor: pointer;
-}
+.sub-screen-clickable { cursor: pointer; }
 
 h1.title{
   font-family:'Beau Rivage', cursive;
@@ -73,11 +68,11 @@ p.subtitle{
   font-size:clamp(1rem,3vw,1.25rem);
   letter-spacing:.03em;
   color:var(--blush-300);
-  margin:0 0 40px;
+  margin:0 0 30px;
   font-style:italic;
 }
 
-/* ---------------- Envelope & Burgundy Letter Inside ---------------- */
+/* Envelope */
 .envelope-wrap{ cursor:pointer; user-select:none; }
 .envelope{
   position:relative;
@@ -86,11 +81,7 @@ p.subtitle{
   margin:0 auto;
   filter:drop-shadow(0 18px 30px rgba(0,0,0,.4));
 }
-.env-base{
-  position:absolute; inset:0;
-  background:#8f1414;
-  border-radius:4px;
-}
+.env-base{ position:absolute; inset:0; background:#8f1414; border-radius:4px; }
 .env-tri{ position:absolute; inset:0; }
 .env-tri-left{  clip-path:polygon(0 0, 0 100%, 50% 55%);  background:#a81f1f; }
 .env-tri-right{ clip-path:polygon(100% 0, 100% 100%, 50% 55%); background:#8f1919; }
@@ -107,8 +98,7 @@ p.subtitle{
 .envelope.open .env-flap{ transform:rotateX(180deg); }
 
 .letter-peek{
-  position:absolute; left:8%; right:8%; top:6%;
-  height:78%;
+  position:absolute; left:8%; right:8%; top:6%; height:78%;
   background: linear-gradient(145deg, #4a1626, #2a0d16);
   border: 1px solid var(--gold-400);
   border-radius:6px;
@@ -116,36 +106,18 @@ p.subtitle{
   transform:translateY(0);
   transition:transform .6s ease .15s;
   z-index:2;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:12px 14px;
-  color: var(--gold-200);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:12px 14px; color: var(--gold-200);
 }
-.letter-peek-line{
-  width: 70%;
-  height: 2px;
-  background: var(--gold-400);
-  opacity: 0.6;
-  border-radius: 2px;
-  margin: 3px 0;
-}
+.letter-peek-line{ width:70%; height:2px; background:var(--gold-400); opacity:0.6; border-radius:2px; margin:3px 0; }
 .envelope.open .letter-peek{ transform:translateY(-42%); }
 
 .tap-hint{
-  margin-top:26px;
-  font-family:'Jost',sans-serif;
-  font-size:.85rem;
-  letter-spacing:.12em;
-  color:var(--blush-300);
-  opacity:.85;
-  animation:pulse 1.8s ease-in-out infinite;
+  margin-top:26px; font-family:'Jost',sans-serif; font-size:.85rem; letter-spacing:.12em; color:var(--blush-300); opacity:.85; animation:pulse 1.8s ease-in-out infinite;
 }
 @keyframes pulse{ 0%,100%{opacity:.5} 50%{opacity:1} }
 
-/* ---------------- Lock Screen ---------------- */
+/* Lock Screen */
 .lock-card{
   background:rgba(251,243,238,0.08);
   border:1px solid rgba(216,181,135,.35);
@@ -154,225 +126,150 @@ p.subtitle{
   padding:26px 22px;
   width:min(88vw,320px);
 }
-.code-display{
-  display:flex; gap:14px; justify-content:center;
-  margin-bottom:22px;
-}
+.code-display{ display:flex; gap:14px; justify-content:center; margin-bottom:22px; }
 .code-dot{
   width:16px; height:16px; border-radius:50%;
-  border:1.5px solid var(--gold-400);
-  background:transparent;
-  transition:background .2s ease;
+  border:1.5px solid var(--gold-400); background:transparent; transition:background .2s ease;
 }
 .code-dot.filled{ background:var(--gold-400); }
 .code-dot.shake{ animation:shake .4s; }
 @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
 
-.numpad{
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
+.numpad{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
 .num-btn{
-  font-family:'Jost',sans-serif;
-  font-size:1.15rem;
-  color:var(--wine-800);
+  font-family:'Jost',sans-serif; font-size:1.15rem; color:var(--wine-800);
   background:linear-gradient(160deg,#fff,var(--blush-300));
-  border:none; border-radius:14px;
-  aspect-ratio:1;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer;
-  box-shadow:0 4px 8px rgba(0,0,0,.25);
-  transition:transform .1s ease;
+  border:none; border-radius:14px; aspect-ratio:1;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  box-shadow:0 4px 8px rgba(0,0,0,.25); transition:transform .1s ease;
 }
 .num-btn:active{ transform:scale(.92); }
-.num-btn.ghost{ background:transparent; box-shadow:none; color:var(--blush-300); font-size:.85rem; font-family:'Jost',sans-serif;}
+.num-btn.ghost{ background:transparent; box-shadow:none; color:var(--blush-300); font-size:.85rem; }
 
-/* ---------------- Menu ---------------- */
-.menu-grid{
-  display:flex; gap:clamp(18px,6vw,44px);
-  flex-wrap:wrap; justify-content:center;
-  max-width:520px;
-}
-.menu-item{
-  cursor:pointer;
-  display:flex; flex-direction:column; align-items:center;
-}
+/* Menu Grid */
+.menu-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; max-width:420px; width:100%; }
+.menu-item{ cursor:pointer; display:flex; flex-direction:column; align-items:center; }
 .menu-icon-img{
-  width:84px; height:84px;
-  border-radius:50%;
-  object-fit:cover;
-  border:2px solid var(--gold-400);
-  box-shadow:0 6px 16px rgba(0,0,0,0.35);
+  width:64px; height:64px; border-radius:50%; object-fit:cover;
+  border:2px solid var(--gold-400); box-shadow:0 6px 16px rgba(0,0,0,0.35);
   transition:transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease;
   animation:gentleFloat 2.8s ease-in-out infinite;
 }
 .menu-item:nth-child(1) .menu-icon-img{ animation-delay:0s; }
-.menu-item:nth-child(2) .menu-icon-img{ animation-delay:0.4s; }
-.menu-item:nth-child(3) .menu-icon-img{ animation-delay:0.8s; }
+.menu-item:nth-child(2) .menu-icon-img{ animation-delay:0.2s; }
+.menu-item:nth-child(3) .menu-icon-img{ animation-delay:0.4s; }
+.menu-item:nth-child(4) .menu-icon-img{ animation-delay:0.6s; }
+.menu-item:nth-child(5) .menu-icon-img{ animation-delay:0.8s; }
+.menu-item:nth-child(6) .menu-icon-img{ animation-delay:1s; }
+.menu-label{ font-family:'Jost', sans-serif; font-size:0.7rem; color:var(--blush-300); margin-top:5px; letter-spacing:0.03em; text-align:center; }
 
 @keyframes gentleFloat{
   0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-8px) rotate(2deg); }
+  50% { transform: translateY(-5px) rotate(2deg); }
 }
-.menu-item:hover .menu-icon-img{
-  transform: scale(1.1) translateY(-4deg);
-  border-color: #fff;
-}
-.menu-item:active .menu-icon-img{
-  transform: scale(1.18);
-}
+.menu-item:hover .menu-icon-img{ transform: scale(1.1) translateY(-3px); border-color:#fff; }
 
-/* ---------------- Sub-Screens ---------------- */
+/* Sub-Screens */
 .back-btn{
-  position:absolute; top:22px; left:18px;
-  width:42px; height:42px;
-  border-radius:50%;
-  background:rgba(251,243,238,.12);
-  border:1px solid rgba(216,181,135,.4);
-  color:var(--cream-100);
-  font-size:1.1rem;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer;
-  z-index:5;
+  position:absolute; top:22px; left:18px; width:42px; height:42px; border-radius:50%;
+  background:rgba(251,243,238,.12); border:1px solid rgba(216,181,135,.4);
+  color:var(--cream-100); font-size:1.1rem; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; z-index:10;
 }
-.sub-scroll{
-  width:100%; height:100%;
-  overflow-y:auto;
-  padding:70px 20px 40px;
-  display:flex; flex-direction:column; align-items:center;
-}
+.sub-scroll{ width:100%; height:100%; overflow-y:auto; padding:70px 20px 40px; display:flex; flex-direction:column; align-items:center; }
 
-/* ---------------- Love Letter Screen ---------------- */
-#screen-letter{
-  position: absolute; inset: 0;
-  background-color: var(--wine-950);
-}
-
+/* Letter */
 .letter-text-free{
-  width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
-  font-size: clamp(1.1rem, 3.4vw, 1.35rem);
-  line-height: 1.85;
-  text-align: left;
-  white-space: pre-line;
-  color: var(--burgundy-light);
-  font-weight: 500;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.85);
-  padding: 10px 12px 50px;
+  width:100%; max-width:720px; margin:0 auto; font-size:clamp(1.1rem, 3.4vw, 1.35rem);
+  line-height:1.85; text-align:left; white-space:pre-line; color:var(--burgundy-light);
+  font-weight:500; text-shadow:0 2px 6px rgba(0,0,0,0.85); padding:10px 12px 50px;
 }
 
-/* ---------------- Icon 1 Layout ---------------- */
+/* Gallery */
 .together-card{
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 18px 14px 28px;
-  max-width: 680px;
-  width: 100%;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  border: 1px solid rgba(255,255,255,0.12);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background:rgba(255, 255, 255, 0.08); backdrop-filter:blur(12px); border-radius:20px;
+  padding:18px 14px 28px; max-width:680px; width:100%; box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  border:1px solid rgba(255,255,255,0.12); display:flex; flex-direction:column; align-items:center;
 }
+.photo-strip{ display:grid; grid-template-columns:repeat(5, 1fr); gap:6px; width:100%; margin-bottom:22px; }
+.photo-strip-item{ width:100%; aspect-ratio:9/16; border-radius:8px; overflow:hidden; background:rgba(74, 22, 38, 0.5); }
+.photo-strip-item img{ width:100%; height:100%; object-fit:cover; display:block; }
+.together-title{ font-size:clamp(1.2rem, 3.8vw, 1.7rem); font-weight:600; color:#fff; margin-bottom:8px; }
+.timer-display{ font-size:clamp(1.25rem, 4vw, 1.8rem); font-weight:700; color:#ffffff; margin-bottom:24px; }
+.quotes-group{ display:flex; flex-direction:column; gap:6px; margin-bottom:26px; }
+.quote-line{ font-size:clamp(1rem, 2.8vw, 1.2rem); color:#f1e4e8; }
+.personal-note{ font-size:clamp(0.92rem, 2.5vw, 1.1rem); line-height:1.5; color:#f8ecee; max-width:580px; }
 
-.photo-strip{
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  width: 100%;
-  margin-bottom: 22px;
-}
-.photo-strip-item{
-  width: 100%;
-  aspect-ratio: 9/16;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  background: rgba(74, 22, 38, 0.5);
-  display: flex; align-items: center; justify-content: center;
-}
-.photo-strip-item img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+/* TikTok Zoom Map */
+#screen-distance { padding: 0 !important; overflow: hidden; }
+#map { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; background: #111; }
+.tiktok-map-overlay { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; text-align: center; padding: 20px; }
+.tiktok-cursive-text { font-family: 'Beau Rivage', cursive; font-size: clamp(2.5rem, 9vw, 4.5rem); color: var(--gold-200); line-height: 1.15; text-shadow: 0 4px 15px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.9); animation: floatText 3s ease-in-out infinite; }
+@keyframes floatText { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.02); } }
+.map-control-banner { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); z-index: 5; background: rgba(42, 13, 22, 0.85); border: 1px solid var(--gold-400); padding: 10px 18px; border-radius: 30px; backdrop-filter: blur(8px); font-family: 'Jost', sans-serif; font-size: 0.85rem; color: var(--blush-300); box-shadow: 0 10px 25px rgba(0,0,0,0.5); text-align: center; max-width: 90%; }
+.custom-map-marker { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold-400); object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.6); background: var(--wine-800); }
 
-.together-title{
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.2rem, 3.8vw, 1.7rem);
-  font-weight: 600;
-  color: #fff;
-  margin-bottom: 8px;
+/* Reasons Jar */
+.jar-container { width:100%; max-width:500px; display:flex; flex-direction:column; align-items:center; }
+.jar-card {
+  background: rgba(255, 255, 255, 0.08); border: 1px solid var(--gold-400);
+  border-radius: 16px; padding: 24px; width: 100%; min-height: 160px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3); margin-bottom: 20px; position: relative;
 }
-.timer-display{
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.25rem, 4vw, 1.8rem);
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 24px;
-  letter-spacing: 0.02em;
+.reason-number { font-family:'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--gold-400); margin-bottom: 10px; }
+.reason-text { font-size: clamp(1.1rem, 3.5vw, 1.35rem); color: var(--cream-100); line-height: 1.5; font-style: italic; }
+.jar-btn {
+  font-family: 'Jost', sans-serif; background: linear-gradient(135deg, var(--gold-400), #b38e5d);
+  color: var(--wine-950); border: none; padding: 12px 24px; border-radius: 30px;
+  font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.2s ease;
 }
-.quotes-group{
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 26px;
-}
-.quote-line{
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1rem, 2.8vw, 1.2rem);
-  color: #f1e4e8;
-}
-.personal-note{
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(0.92rem, 2.5vw, 1.1rem);
-  line-height: 1.5;
-  color: #f8ecee;
-  max-width: 580px;
-}
+.jar-btn:active { transform: scale(0.95); }
 
-.song-embed{
-  width:100%; max-width:420px;
-  aspect-ratio:16/9;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 14px 30px rgba(0,0,0,.4);
-  margin-top:10px;
+/* Future Bucket List */
+.bucket-container { width:100%; max-width:520px; display:flex; flex-direction:column; align-items:center; }
+.bucket-input-row { display:flex; gap:8px; width:100%; margin-bottom:20px; }
+.bucket-input {
+  flex:1; background:rgba(255,255,255,0.07); border:1px solid rgba(216,181,135,0.4);
+  border-radius:12px; padding:12px 16px; color:#fff; font-family:'Jost', sans-serif; font-size:0.95rem; outline:none;
 }
+.bucket-input::placeholder { color:var(--blush-300); opacity:0.6; }
+.bucket-add-btn {
+  background:var(--gold-400); color:var(--wine-950); border:none; border-radius:12px;
+  padding:0 20px; font-family:'Jost',sans-serif; font-weight:600; cursor:pointer;
+}
+.bucket-list { width:100%; display:flex; flex-direction:column; gap:10px; max-height:45vh; overflow-y:auto; padding-right:4px; }
+.bucket-item {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px; padding:12px 16px; display:flex; align-items:center; justify-content:space-between;
+  text-align:left; gap:12px; transition:background 0.2s ease;
+}
+.bucket-item.completed { background:rgba(124,36,56,0.3); border-color:var(--gold-400); opacity:0.75; }
+.bucket-item.completed span { text-decoration:line-through; color:var(--blush-300); }
+.bucket-left { display:flex; align-items:center; gap:12px; cursor:pointer; flex:1; word-break:break-word; font-family:'Jost', sans-serif; font-size:0.95rem; color:var(--cream-100); }
+.bucket-checkbox { width:20px; height:20px; border-radius:6px; border:2px solid var(--gold-400); display:flex; align-items:center; justify-content:center; flex-shrink:0; background:transparent; }
+.bucket-item.completed .bucket-checkbox { background:var(--gold-400); color:var(--wine-950); font-size:0.8rem; }
+.bucket-del { background:transparent; border:none; color:var(--blush-300); cursor:pointer; font-size:1rem; opacity:0.6; padding:4px; }
+.bucket-del:hover { opacity:1; color:#ff6b6b; }
+
+/* Song / Vinyl */
+.song-embed{ width:100%; max-width:420px; aspect-ratio:16/9; border-radius:12px; overflow:hidden; box-shadow:0 14px 30px rgba(0,0,0,.4); margin-top:10px; }
 .song-embed iframe{ width:100%; height:100%; border:0; }
-
 .vinyl{
   width:120px; height:120px; border-radius:50%;
   background:repeating-radial-gradient(circle at center,#111 0 3px,#000 3px 6px);
-  display:flex; align-items:center; justify-content:center;
-  margin-bottom:18px;
-  animation:spin 6s linear infinite, bob 2.2s ease-in-out infinite;
-  box-shadow:0 10px 24px rgba(0,0,0,.4);
+  display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  animation:spin 6s linear infinite, bob 2.2s ease-in-out infinite; box-shadow:0 10px 24px rgba(0,0,0,.4);
 }
 @keyframes bob{ 0%,100%{ margin-top:0; } 50%{ margin-top:-10px; } }
-.vinyl::after{
-  content:"";
-  width:34px; height:34px; border-radius:50%;
-  background:var(--wine-600);
-}
+.vinyl::after{ content:""; width:34px; height:34px; border-radius:50%; background:var(--wine-600); }
 @keyframes spin{ to{ transform:rotate(360deg);} }
 
-/* Heart Burst Animation */
-.heart-burst{ position:fixed; inset:0; pointer-events:none; z-index:6; overflow:hidden; }
+.heart-burst{ position:fixed; inset:0; pointer-events:none; z-index:20; overflow:hidden; }
 .heart-burst span{
-  position:absolute; bottom:-10%;
-  font-size:1.4rem;
-  color:var(--blush-300);
-  opacity:.9;
-  animation:rise 3.2s ease-in forwards;
+  position:absolute; bottom:-10%; font-size:1.4rem; color:var(--blush-300); opacity:.9; animation:rise 3.2s ease-in forwards;
 }
-@keyframes rise{
-  to{ transform:translateY(-115vh) rotate(20deg); opacity:0; }
-}
+@keyframes rise{ to{ transform:translateY(-115vh) rotate(20deg); opacity:0; } }
 
 ::-webkit-scrollbar{ width:4px; }
 ::-webkit-scrollbar-thumb{ background:rgba(216,181,135,0.4); border-radius:4px; }
@@ -381,7 +278,6 @@ p.subtitle{
 <body>
 
 <div id="bg-solid"></div>
-
 <div id="app">
 
   <!-- 1. HERO -->
@@ -394,12 +290,10 @@ p.subtitle{
         <div class="env-tri env-tri-left"></div>
         <div class="env-tri env-tri-right"></div>
         <div class="env-tri env-tri-bottom"></div>
-        
         <div class="letter-peek">
           <div class="letter-peek-line"></div>
           <div class="letter-peek-line" style="width:50%;"></div>
         </div>
-
         <div class="env-flap"></div>
       </div>
     </div>
@@ -422,13 +316,28 @@ p.subtitle{
     <p class="subtitle" id="menu-subtitle">Another chapter down, forever to go</p>
     <div class="menu-grid">
       <div class="menu-item" data-target="screen-gallery">
-        <img class="menu-icon-img" src="imagesphoto7.jpg" alt="Photo 7" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>📷</text></svg>'">
+        <img class="menu-icon-img" src="imagesphoto7.jpg" alt="Gallery" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>📷</text></svg>'">
+        <div class="menu-label">Gallery</div>
       </div>
       <div class="menu-item" data-target="screen-letter">
-        <img class="menu-icon-img" src="imagesphoto8.jpg" alt="Photo 8" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>💌</text></svg>'">
+        <img class="menu-icon-img" src="imagesphoto8.jpg" alt="Letter" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>💌</text></svg>'">
+        <div class="menu-label">Letter</div>
+      </div>
+      <div class="menu-item" data-target="screen-distance">
+        <img class="menu-icon-img" src="imagesphoto10.jpg" alt="Map" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🗺️</text></svg>'">
+        <div class="menu-label">Live Map</div>
+      </div>
+      <div class="menu-item" data-target="screen-reasons">
+        <img class="menu-icon-img" src="imagesphoto4.jpg" alt="Reasons" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>💖</text></svg>'">
+        <div class="menu-label">Why I Love You</div>
+      </div>
+      <div class="menu-item" data-target="screen-bucket">
+        <img class="menu-icon-img" src="imagesphoto5.jpg" alt="Bucket List" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>✈️</text></svg>'">
+        <div class="menu-label">Bucket List</div>
       </div>
       <div class="menu-item" data-target="screen-song">
-        <img class="menu-icon-img" src="imagesphoto9.jpg" alt="Photo 9" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🎵</text></svg>'">
+        <img class="menu-icon-img" src="imagesphoto9.jpg" alt="Song" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🎵</text></svg>'">
+        <div class="menu-label">Our Song</div>
       </div>
     </div>
   </section>
@@ -437,40 +346,81 @@ p.subtitle{
   <section class="screen sub-screen-clickable" id="screen-letter" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <div class="sub-scroll">
-      <h1 class="title" style="font-size:clamp(1.8rem,5.5vw,2.4rem); margin-bottom:10px; text-shadow:0 2px 6px rgba(0,0,0,0.85);">My love letter</h1>
+      <h1 class="title" style="font-size:clamp(1.8rem,5.5vw,2.4rem); margin-bottom:10px;">My Love Letter</h1>
       <div class="letter-text-free" id="letter-text"></div>
     </div>
   </section>
 
-  <!-- 5. ICON 1 SCREEN -->
+  <!-- 5. GALLERY -->
   <section class="screen sub-screen-clickable" id="screen-gallery" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <div class="sub-scroll">
       <div class="together-card">
         <div class="photo-strip">
-          <div class="photo-strip-item"><img src="imagesphoto2.jpg" alt="photo2" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
-          <div class="photo-strip-item"><img src="imagesphoto3.jpg" alt="photo3" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
-          <div class="photo-strip-item"><img src="imagesphoto4.jpg" alt="photo4" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
-          <div class="photo-strip-item"><img src="imagesphoto5.jpg" alt="photo5" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
-          <div class="photo-strip-item"><img src="imagesphoto6.jpg" alt="photo6" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
+          <div class="photo-strip-item"><img src="imagesphoto2.jpg" alt="photo2"></div>
+          <div class="photo-strip-item"><img src="imagesphoto3.jpg" alt="photo3"></div>
+          <div class="photo-strip-item"><img src="imagesphoto4.jpg" alt="photo4"></div>
+          <div class="photo-strip-item"><img src="imagesphoto5.jpg" alt="photo5"></div>
+          <div class="photo-strip-item"><img src="imagesphoto6.jpg" alt="photo6"></div>
         </div>
-
         <div class="together-title">We've been together for</div>
         <div class="timer-display" id="together-timer">Calculating...</div>
-
         <div class="quotes-group">
-          <div class="quote-line">I miss you Love</div>
+          <div class="quote-line">I miss you, Love</div>
           <div class="quote-line">I'll never stop choosing you</div>
         </div>
-
         <div class="personal-note">
-         I hope youre safe as always, I'm always proud of you love, and I cant wait to spend the rest of my life with you 𖹭
+          I hope you're safe as always, I'm always proud of you love, and I can't wait to spend the rest of my life with you.
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 6. SONG -->
+  <!-- 6. TIKTOK STYLE ZOOM MAP -->
+  <section class="screen" id="screen-distance">
+    <div class="back-btn" data-back="screen-menu" style="z-index: 10;">&#8592;</div>
+    <div id="map"></div>
+    <div class="tiktok-map-overlay">
+      <div class="tiktok-cursive-text">long distance<br>and we're<br>still together</div>
+    </div>
+    <div class="map-control-banner" id="map-distance-text">
+      <b>Distance:</b> Calculating...
+    </div>
+  </section>
+
+  <!-- 7. REASONS WHY I LOVE YOU -->
+  <section class="screen sub-screen-clickable" id="screen-reasons" data-back="screen-menu">
+    <div class="back-btn" data-back="screen-menu">&#8592;</div>
+    <div class="sub-scroll">
+      <h1 class="title" style="font-size:clamp(1.8rem,5.5vw,2.4rem); margin-bottom:5px;">Reasons Why I Love You</h1>
+      <p class="subtitle" style="margin-bottom:20px;">Click to pull out a reason from our jar</p>
+      <div class="jar-container">
+        <div class="jar-card">
+          <div class="reason-number" id="reason-num">Reason #1</div>
+          <div class="reason-text" id="reason-content">Loading reason...</div>
+        </div>
+        <button class="jar-btn" id="next-reason-btn">Pick Another Reason 💖</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FUTURE BUCKET LIST (Interactive Add & Check) -->
+  <section class="screen sub-screen-clickable" id="screen-bucket" data-back="screen-menu">
+    <div class="back-btn" data-back="screen-menu">&#8592;</div>
+    <div class="sub-scroll">
+      <h1 class="title" style="font-size:clamp(1.8rem,5.5vw,2.4rem); margin-bottom:5px;">Our Future Bucket List</h1>
+      <p class="subtitle" style="margin-bottom:15px;">Add goals and tap to check when done together!</p>
+      <div class="bucket-container">
+        <div class="bucket-input-row">
+          <input type="text" class="bucket-input" id="bucket-new-input" placeholder="Type a dream or date idea...">
+          <button class="bucket-add-btn" id="bucket-add-btn">Add</button>
+        </div>
+        <div class="bucket-list" id="bucket-list-container"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. SONG -->
   <section class="screen sub-screen-clickable" id="screen-song" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <h1 class="title" id="song-title" style="font-size:clamp(1.6rem,5vw,2.2rem)">Our Special Song</h1>
@@ -480,25 +430,44 @@ p.subtitle{
 
 </div>
 
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 <script>
 const CONFIG = {
   title: "Happy Anniversary, My Love",
   subtitle: "Another chapter down, forever to go",
   passcode: "092625",
   lockHint: "Enter the date it all began",
-
   startDate: new Date(2025, 8, 26, 10, 13, 0),
 
-  letter:
-`Happy anniversary love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much. 
-I hope you’re always safe and doing well. Time really flies so fast, huh? It feels like just yesterday, and now we’re already celebrating another year together.
-I’m so proud of how much you’ve grown and improved throughout this year. I’ve seen how hard you’ve worked, how you’ve handled everything, and how you’ve kept going even when things weren’t easy. I’m really proud of the person you’re becoming.
+  myLoc: { lat: 13.3854, lng: 123.7295, name: "Bacacay, Albay, PH" },
+  partnerLoc: { lat: 3.1390, lng: 101.6869, name: "Kuala Lumpur, MY" },
 
-Thank you for staying with me through everything, for loving me, and for being part of my life. I’m grateful for every memory we’ve made, every laugh, every late-night call, and even the difficult moments because they helped us grow together.
+  myImg: "imagesphoto3.jpg",
+  partnerImg: "imagesphoto2.jpg",
 
-I hope we continue to choose each other, understand each other, and grow together. No matter what happens, I’ll always be rooting for you and supporting you. Here’s to more memories, more adventures, more laughs, and more years with you.
+  letter: `Happy anniversary, love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much. \n\nI hope you’re always safe and doing well. Time really flies so fast, huh? It feels like just yesterday, and now we’re already celebrating another year together.\n\nI’m so proud of how much you’ve grown and improved throughout this year. I’ve seen how hard you’ve worked, how you’ve handled everything, and how you’ve kept going even when things weren’t easy. I’m really proud of the person you’re becoming.\n\nThank you for staying with me through everything, for loving me, and for being part of my life. I’m grateful for every memory we’ve made, every laugh, every late-night call, and even the difficult moments because they helped us grow together.\n\nI hope we continue to choose each other, understand each other, and grow together. No matter what happens, I’ll always be rooting for you and supporting you. Here’s to more memories, more adventures, more laughs, and more years with you.\n\nI love you always, Hubby. Happy anniversary!`,
 
-I love you always Hubby. Happy anniversary!`,
+  reasons: [
+    "Your soothing voice whenever we talk on our video calls.",
+    "How hard-working and dedicated you are to your goals.",
+    "The way you make me smile even when we are miles apart.",
+    "Your patience and understanding during tough moments.",
+    "The little updates you send me throughout your day.",
+    "How safe and loved I feel whenever I'm with you.",
+    "Your kindness and genuine heart toward others.",
+    "The way you look at me and make me feel like the luckiest person.",
+    "Every single random joke and laugh we share.",
+    "Simply because you are you, and you're my favorite person."
+  ],
+
+  defaultBucket: [
+    { text: "Travel to Japan together", completed: false },
+    { text: "Have a real coffee date in person", completed: false },
+    { text: "Watch the sunset side-by-side", completed: false },
+    { text: "Cook the same meal while video calling", completed: false }
+  ],
 
   songTitle: "Special Song For You",
   songYouTubeUrl: "https://youtu.be/3-NTv0CdFCk"
@@ -512,11 +481,143 @@ document.getElementById('lock-hint').textContent = CONFIG.lockHint;
 document.getElementById('letter-text').textContent = CONFIG.letter;
 document.getElementById('song-title').textContent = CONFIG.songTitle;
 
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  const R = 3958.8;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return Math.round(R * c);
+}
+
+let map = null;
+let myMarker = null;
+let partnerMarker = null;
+let polyline = null;
+
+function initTikTokZoomMap() {
+  if (!map) {
+    map = L.map('map', { zoomControl: false, attributionControl: false }).setView([20, 80], 2);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(map);
+  }
+
+  const myLat = CONFIG.myLoc.lat;
+  const myLng = CONFIG.myLoc.lng;
+  const partnerLat = CONFIG.partnerLoc.lat;
+  const partnerLng = CONFIG.partnerLoc.lng;
+
+  const myIcon = L.divIcon({
+    className: 'custom-div-icon',
+    html: `<img src="${CONFIG.myImg}" class="custom-map-marker">`,
+    iconSize: [48, 48], iconAnchor: [24, 24]
+  });
+  const partnerIcon = L.divIcon({
+    className: 'custom-div-icon',
+    html: `<img src="${CONFIG.partnerImg}" class="custom-map-marker">`,
+    iconSize: [48, 48], iconAnchor: [24, 24]
+  });
+
+  if (myMarker) map.removeLayer(myMarker);
+  if (partnerMarker) map.removeLayer(partnerMarker);
+  if (polyline) map.removeLayer(polyline);
+
+  myMarker = L.marker([myLat, myLng], { icon: myIcon }).addTo(map);
+  partnerMarker = L.marker([partnerLat, partnerLng], { icon: partnerIcon }).addTo(map);
+  polyline = L.polyline([[myLat, myLng], [partnerLat, partnerLng]], { color: '#d8b587', weight: 3, dashArray: '6, 8' }).addTo(map);
+
+  map.setView([20, 80], 2);
+  setTimeout(() => {
+    map.flyToBounds(polyline.getBounds(), { padding: [70, 70], duration: 2.5, easeLinearity: 0.25 });
+  }, 800);
+
+  const distMiles = calculateDistance(myLat, myLng, partnerLat, partnerLng);
+  document.getElementById('map-distance-text').innerHTML = 
+    `<b>Distance:</b> Around <b>${distMiles.toLocaleString()} miles</b> apart, but forever together! ❤️`;
+}
+
+// Reasons Jar Logic
+let currentReasonIdx = 0;
+function renderReason() {
+  document.getElementById('reason-num').textContent = `Reason #${currentReasonIdx + 1} of ${CONFIG.reasons.length}`;
+  document.getElementById('reason-content').textContent = `"${CONFIG.reasons[currentReasonIdx]}"`;
+}
+document.getElementById('next-reason-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  currentReasonIdx = (currentReasonIdx + 1) % CONFIG.reasons.length;
+  renderReason();
+});
+renderReason();
+
+// Bucket List Logic
+let bucketItems = JSON.parse(localStorage.getItem('anniv_bucket_list')) || CONFIG.defaultBucket;
+
+function saveBucket() {
+  localStorage.setItem('anniv_bucket_list', JSON.stringify(bucketItems));
+}
+
+function renderBucketList() {
+  const container = document.getElementById('bucket-list-container');
+  container.innerHTML = "";
+  
+  if(bucketItems.length === 0) {
+    container.innerHTML = `<div style="text-align:center; color:var(--blush-300); font-style:italic; font-size:0.9rem; padding:15px;">No bucket list items yet. Add one below!</div>`;
+    return;
+  }
+
+  bucketItems.forEach((item, index) => {
+    const div = document.createElement('div');
+    div.className = `bucket-item ${item.completed ? 'completed' : ''}`;
+    
+    div.innerHTML = `
+      <div class="bucket-left" data-idx="${index}">
+        <div class="bucket-checkbox">${item.completed ? '✓' : ''}</div>
+        <span>${item.text}</span>
+      </div>
+      <button class="bucket-del" data-idx="${index}" title="Delete">🗑️</button>
+    `;
+
+    div.querySelector('.bucket-left').addEventListener('click', (e) => {
+      e.stopPropagation();
+      bucketItems[index].completed = !bucketItems[index].completed;
+      saveBucket();
+      renderBucketList();
+    });
+
+    div.querySelector('.bucket-del').addEventListener('click', (e) => {
+      e.stopPropagation();
+      bucketItems.splice(index, 1);
+      saveBucket();
+      renderBucketList();
+    });
+
+    container.appendChild(div);
+  });
+}
+
+document.getElementById('bucket-add-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  const input = document.getElementById('bucket-new-input');
+  const val = input.value.trim();
+  if(val) {
+    bucketItems.push({ text: val, completed: false });
+    input.value = "";
+    saveBucket();
+    renderBucketList();
+  }
+});
+
+document.getElementById('bucket-new-input').addEventListener('keypress', (e) => {
+  if(e.key === 'Enter') {
+    document.getElementById('bucket-add-btn').click();
+  }
+});
+renderBucketList();
+
+// YouTube & Navigation
 function youtubeId(url){
   const m = url.match(/(?:youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{11})/);
   return m ? m[1] : null;
 }
-
 const songEmbed = document.getElementById('song-embed');
 const ytid = youtubeId(CONFIG.songYouTubeUrl);
 let musicStarted = false;
@@ -532,17 +633,20 @@ function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 
-  if (id === 'screen-song') {
-    if (ytid && !songEmbed.querySelector('iframe')) {
-      songEmbed.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytid}?autoplay=1&enablejsapi=1" title="song" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-    }
+  if (id === 'screen-distance') {
+    setTimeout(() => {
+      initTikTokZoomMap();
+      if(map) map.invalidateSize();
+    }, 150);
+  }
+
+  if (id === 'screen-song' && ytid && !songEmbed.querySelector('iframe')) {
+    songEmbed.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytid}?autoplay=1&enablejsapi=1" title="song" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
   }
 }
 
 document.querySelectorAll('.menu-item').forEach(item=>{
-  item.addEventListener('click', ()=> {
-    showScreen(item.dataset.target);
-  });
+  item.addEventListener('click', ()=> showScreen(item.dataset.target));
 });
 
 document.querySelectorAll('.back-btn').forEach(btn=>{
@@ -554,7 +658,8 @@ document.querySelectorAll('.back-btn').forEach(btn=>{
 
 document.querySelectorAll('.sub-screen-clickable').forEach(screen=>{
   screen.addEventListener('click', (e)=>{
-    if(e.target.tagName.toLowerCase() === 'iframe') return;
+    if(['INPUT', 'BUTTON', 'IFRAME', 'SPAN'].includes(e.target.tagName)) return;
+    if(e.target.closest('.bucket-item') || e.target.closest('.jar-container')) return;
     showScreen(screen.dataset.back);
   });
 });
@@ -572,8 +677,7 @@ const codeDisplay = document.getElementById('code-display');
 
 function renderDots(){
   codeDisplay.innerHTML = "";
-  const len = CONFIG.passcode.length;
-  for(let i=0;i<len;i++){
+  for(let i=0; i<CONFIG.passcode.length; i++){
     const dot = document.createElement('div');
     dot.className = 'code-dot' + (i < entered.length ? ' filled' : '');
     codeDisplay.appendChild(dot);
@@ -589,7 +693,7 @@ function heartCelebration(){
   const burst = document.createElement('div');
   burst.className = 'heart-burst';
   document.body.appendChild(burst);
-  for(let i=0;i<24;i++){
+  for(let i=0; i<24; i++){
     const s = document.createElement('span');
     s.textContent = '♥';
     s.style.left = Math.random()*100+'%';
@@ -632,23 +736,14 @@ digits.forEach(d=>{
 renderDots();
 
 function updateTimer() {
-  const now = new Date();
-  const diff = now - CONFIG.startDate;
-
-  if (diff < 0) {
-    document.getElementById('together-timer').textContent = "0 days 0 hours 0 minutes 0 seconds";
-    return;
-  }
-
+  const diff = new Date() - CONFIG.startDate;
+  if (diff < 0) return;
   const seconds = Math.floor((diff / 1000) % 60);
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
   const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-  document.getElementById('together-timer').textContent = 
-    `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+  document.getElementById('together-timer').textContent = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
 }
-
 setInterval(updateTimer, 1000);
 updateTimer();
 </script>
