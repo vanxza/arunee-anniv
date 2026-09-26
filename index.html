@@ -88,7 +88,7 @@ p.subtitle{
   font-style:italic;
 }
 
-/* ---------------- Envelope & Burgundy Letter Inside ---------------- */
+/* ---------------- Envelope & Burgundy Letter Inside (Wala nang malaking heart sa gitna) ---------------- */
 .envelope-wrap{ cursor:pointer; user-select:none; }
 .envelope{
   position:relative;
@@ -258,7 +258,7 @@ p.subtitle{
   display:flex; flex-direction:column; align-items:center;
 }
 
-/* ---------------- Love Letter Screen ---------------- */
+/* ---------------- Love Letter Screen (Binalik sa dating sukat/default size ang bg photo 3) ---------------- */
 #screen-letter{
   position: absolute; inset: 0;
   background-image: linear-gradient(rgba(42, 13, 22, 0.5), rgba(42, 13, 22, 0.75)), url('imagesphoto3.jpg');
@@ -543,6 +543,7 @@ const songEmbed = document.getElementById('song-embed');
 const ytid = youtubeId(CONFIG.songYouTubeUrl);
 let musicStarted = false;
 
+// Iisang YouTube player na lang at nagre-render/autoplay pagkatapos i-type ang passcode
 function startMusicOnce() {
   if (!musicStarted && ytid) {
     musicStarted = true;
@@ -639,7 +640,7 @@ digits.forEach(d=>{
       renderDots();
       if(entered.length === CONFIG.passcode.length){
         if(entered === CONFIG.passcode){
-          startMusicOnce(); // Awtomatikong tutugtog ang kanta pagkapasa ng password papuntang menu
+          startMusicOnce(); // Dito nag-a-autoplay ang kanta pagkatapos ilagay ang tamang passcode papuntang menu
           heartCelebration();
           setTimeout(()=> showScreen('screen-menu'), 500);
         } else {
