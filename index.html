@@ -116,19 +116,6 @@ p.subtitle{
   border-radius:4px 4px 0 0;
 }
 .envelope.open .env-flap{ transform:rotateX(180deg); }
-.seal{
-  position:absolute; top:55%; left:50%;
-  width:46px; height:46px;
-  transform:translate(-50%,-50%);
-  background:radial-gradient(circle at 35% 30%, var(--gold-400), #a97a3c);
-  border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  font-size:20px; color:#5c1a2b;
-  box-shadow:0 4px 10px rgba(0,0,0,.4);
-  z-index:4;
-  transition:opacity .3s ease, transform .3s ease;
-}
-.envelope.open .seal{ opacity:0; transform:translate(-50%,-50%) scale(.4); }
 
 .letter-peek{
   position:absolute; left:8%; right:8%; top:6%;
@@ -276,7 +263,7 @@ p.subtitle{
   position: absolute; inset: 0;
   background-image: linear-gradient(rgba(42, 13, 22, 0.5), rgba(42, 13, 22, 0.75)), url('imagesphoto3.jpg');
   background-size: cover;
-  background-position: center 30%; /* Shifted down so face is visible */
+  background-position: center 30%;
 }
 
 .letter-text-free{
@@ -293,7 +280,6 @@ p.subtitle{
   padding: 10px 12px 50px;
 }
 
-/* Hidden container kept in DOM for background music persistence */
 #persistent-music-box {
   position: fixed;
   bottom: -999px;
@@ -425,7 +411,6 @@ p.subtitle{
 <img id="bg-photo" src="imagesphoto1.jpg" alt="Our photo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'1200\' viewBox=\'0 0 800 1200\'><rect width=\'100%\' height=\'100%\' fill=\'%232a0d16\'/><text x=\'50%\' y=\'50%\' fill=\'%23d8b587\' font-size=\'48\' text-anchor=\'middle\'>❤️</text></svg>'">
 <div id="bg-tint"></div>
 
-<!-- Persistent background music container so it never stops when changing screens -->
 <div id="persistent-music-box"></div>
 
 <div id="app">
@@ -441,7 +426,6 @@ p.subtitle{
         <div class="env-tri env-tri-right"></div>
         <div class="env-tri env-tri-bottom"></div>
         
-        <!-- Burgundy paper preview popping out of envelope -->
         <div class="letter-peek">
           <div class="letter-peek-heart">&#9825;</div>
           <div class="letter-peek-line"></div>
@@ -449,7 +433,6 @@ p.subtitle{
         </div>
 
         <div class="env-flap"></div>
-        <div class="seal">&#9825;</div>
       </div>
     </div>
     <div class="tap-hint">tap the envelope</div>
@@ -482,7 +465,7 @@ p.subtitle{
     </div>
   </section>
 
-  <!-- 4. LETTER (Direct flow over shifted photo 3 background) -->
+  <!-- 4. LETTER -->
   <section class="screen sub-screen-clickable" id="screen-letter" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <div class="sub-scroll">
@@ -578,7 +561,6 @@ function startMusicOnce() {
   if (!musicStarted && ytid) {
     musicStarted = true;
     persistentMusicBox.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytid}?autoplay=1&enablejsapi=1" title="background-song" allow="autoplay; encrypted-media"></iframe>`;
-    // Also mirror in the visible screen embed if present
     songEmbed.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytid}?autoplay=1&enablejsapi=1" title="song" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
   }
 }
@@ -587,7 +569,6 @@ function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 
-  // When opening the song screen specifically, ensure embed is populated and playing
   if (id === 'screen-song') {
     startMusicOnce();
     if (ytid && !songEmbed.querySelector('iframe')) {
