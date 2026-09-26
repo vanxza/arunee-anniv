@@ -271,36 +271,38 @@ p.subtitle{
   display:flex; flex-direction:column; align-items:center;
 }
 
-/* ---------------- Love Letter Screen (Scrollable Box over photo3 BG) ---------------- */
+/* ---------------- Love Letter Screen (No Box, Background shifted down for husband's face) ---------------- */
 #screen-letter{
   position: absolute; inset: 0;
-  background-image: linear-gradient(rgba(42, 13, 22, 0.65), rgba(42, 13, 22, 0.75)), url('imagesphoto3.jpg');
+  background-image: linear-gradient(rgba(42, 13, 22, 0.5), rgba(42, 13, 22, 0.75)), url('imagesphoto3.jpg');
   background-size: cover;
-  background-position: center;
-}
-
-.letter-box-container{
-  background: rgba(42, 13, 22, 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(216, 181, 135, 0.4);
-  border-radius: 20px;
-  padding: 24px 22px;
-  max-width: 680px;
-  width: 100%;
-  max-height: 72vh;
-  overflow-y: auto;
-  box-shadow: 0 12px 35px rgba(0,0,0,0.5);
-  text-align: left;
-  margin-top: 10px;
+  background-position: center 30%; /* Shifted down so face is visible */
 }
 
 .letter-text-free{
-  font-size: clamp(1.05rem, 3.2vw, 1.25rem);
-  line-height: 1.8;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: clamp(1.1rem, 3.4vw, 1.35rem);
+  line-height: 1.85;
+  text-align: left;
   white-space: pre-line;
   color: var(--burgundy-light);
   font-weight: 500;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.85);
+  padding: 10px 12px 50px;
+}
+
+/* Hidden container kept in DOM for background music persistence */
+#persistent-music-box {
+  position: fixed;
+  bottom: -999px;
+  left: -999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ---------------- Icon 1 Layout ---------------- */
@@ -423,6 +425,9 @@ p.subtitle{
 <img id="bg-photo" src="imagesphoto1.jpg" alt="Our photo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'1200\' viewBox=\'0 0 800 1200\'><rect width=\'100%\' height=\'100%\' fill=\'%232a0d16\'/><text x=\'50%\' y=\'50%\' fill=\'%23d8b587\' font-size=\'48\' text-anchor=\'middle\'>❤️</text></svg>'">
 <div id="bg-tint"></div>
 
+<!-- Persistent background music container so it never stops when changing screens -->
+<div id="persistent-music-box"></div>
+
 <div id="app">
 
   <!-- 1. HERO -->
@@ -477,18 +482,16 @@ p.subtitle{
     </div>
   </section>
 
-  <!-- 4. LETTER (Scrollable box container over photo 3 BG) -->
+  <!-- 4. LETTER (Direct flow over shifted photo 3 background) -->
   <section class="screen sub-screen-clickable" id="screen-letter" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <div class="sub-scroll">
-      <h1 class="title" style="font-size:clamp(1.8rem,5.5vw,2.3rem); margin-bottom:14px; text-shadow:0 2px 6px rgba(0,0,0,0.8);">Letter for My Future Husband</h1>
-      <div class="letter-box-container">
-        <div class="letter-text-free" id="letter-text"></div>
-      </div>
+      <h1 class="title" style="font-size:clamp(1.8rem,5.5vw,2.4rem); margin-bottom:10px; text-shadow:0 2px 6px rgba(0,0,0,0.85);">My love letter</h1>
+      <div class="letter-text-free" id="letter-text"></div>
     </div>
   </section>
 
-  <!-- 5. ICON 1 SCREEN (Photos 2-6 with robust fallbacks) -->
+  <!-- 5. ICON 1 SCREEN -->
   <section class="screen sub-screen-clickable" id="screen-gallery" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <div class="sub-scroll">
@@ -517,7 +520,7 @@ p.subtitle{
     </div>
   </section>
 
-  <!-- 6. SONG (3rd Icon with requested YouTube URL & Autoplay) -->
+  <!-- 6. SONG -->
   <section class="screen sub-screen-clickable" id="screen-song" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <h1 class="title" id="song-title" style="font-size:clamp(1.6rem,5vw,2.2rem)">Our Special Song</h1>
@@ -537,7 +540,7 @@ const CONFIG = {
   startDate: new Date(2025, 8, 26, 10, 13, 0),
 
   letter:
-`Happy anniversary, lovey! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much.
+`Happy anniversary, love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so, so much.
 
 I hope you’re always safe and doing well. Time really flies so fast, huh? It feels like just yesterday, and now we’re already celebrating another year together.
 
@@ -561,37 +564,45 @@ document.getElementById('lock-hint').textContent = CONFIG.lockHint;
 document.getElementById('letter-text').textContent = CONFIG.letter;
 document.getElementById('song-title').textContent = CONFIG.songTitle;
 
-// Extract YouTube Video ID (supports youtu.be and youtube.com)
 function youtubeId(url){
   const m = url.match(/(?:youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{11})/);
   return m ? m[1] : null;
 }
 
 const songEmbed = document.getElementById('song-embed');
+const persistentMusicBox = document.getElementById('persistent-music-box');
 const ytid = youtubeId(CONFIG.songYouTubeUrl);
+let musicStarted = false;
+
+function startMusicOnce() {
+  if (!musicStarted && ytid) {
+    musicStarted = true;
+    persistentMusicBox.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytid}?autoplay=1&enablejsapi=1" title="background-song" allow="autoplay; encrypted-media"></iframe>`;
+    // Also mirror in the visible screen embed if present
+    songEmbed.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytid}?autoplay=1&enablejsapi=1" title="song" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+  }
+}
 
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 
-  // Handle autoplay when entering song screen
+  // When opening the song screen specifically, ensure embed is populated and playing
   if (id === 'screen-song') {
-    if (ytid) {
+    startMusicOnce();
+    if (ytid && !songEmbed.querySelector('iframe')) {
       songEmbed.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytid}?autoplay=1&enablejsapi=1" title="song" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-    }
-  } else {
-    // Stop music when leaving song screen
-    if (id === 'screen-menu') {
-      songEmbed.innerHTML = '';
     }
   }
 }
 
 document.querySelectorAll('.menu-item').forEach(item=>{
-  item.addEventListener('click', ()=> showScreen(item.dataset.target));
+  item.addEventListener('click', ()=> {
+    startMusicOnce();
+    showScreen(item.dataset.target);
+  });
 });
 
-// Click back-button
 document.querySelectorAll('.back-btn').forEach(btn=>{
   btn.addEventListener('click', (e)=>{
     e.stopPropagation();
@@ -599,7 +610,6 @@ document.querySelectorAll('.back-btn').forEach(btn=>{
   });
 });
 
-// Click anywhere on sub-screens to return to menu
 document.querySelectorAll('.sub-screen-clickable').forEach(screen=>{
   screen.addEventListener('click', (e)=>{
     if(e.target.tagName.toLowerCase() === 'iframe') return;
@@ -610,6 +620,7 @@ document.querySelectorAll('.sub-screen-clickable').forEach(screen=>{
 const envelope = document.getElementById('envelope');
 document.getElementById('envelope-wrap').addEventListener('click', ()=>{
   if(envelope.classList.contains('open')) return;
+  startMusicOnce();
   envelope.classList.add('open');
   setTimeout(()=> showScreen('screen-lock'), 900);
 });
@@ -660,6 +671,7 @@ digits.forEach(d=>{
     btn.className = 'num-btn';
     btn.textContent = d;
     btn.addEventListener('click', ()=>{
+      startMusicOnce();
       if(entered.length >= CONFIG.passcode.length) return;
       entered += d;
       renderDots();
