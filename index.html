@@ -136,13 +136,14 @@ p.subtitle{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:4px;
+  padding:16px;
 }
-.letter-peek img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:4px;
+.letter-peek-text{
+  color:var(--wine-800);
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(1.1rem, 3.5vw, 1.4rem);
+  font-weight:600;
+  text-align:center;
 }
 .envelope.open .letter-peek{ transform:translateY(-42%); }
 .tap-hint{
@@ -396,7 +397,7 @@ p.subtitle{
         <div class="env-tri env-tri-right"></div>
         <div class="env-tri env-tri-bottom"></div>
         <div class="letter-peek">
-          <img src="imagesphoto10.jpg" alt="Inside Envelope Photo">
+          <div class="letter-peek-text">For You ❤️</div>
         </div>
         <div class="env-flap"></div>
         <div class="seal">&#9825;</div>
@@ -450,7 +451,7 @@ p.subtitle{
     <div class="sub-scroll">
       <div class="together-card">
         <div class="photo-strip">
-          <div class="photo-strip-item"><img src="imagesphoto2.jpg" alt="photo2"></div>
+          <div class="photo-strip-item"><img src="imagesphoto2.jpg" alt="photo2" onerror="this.src='photo2.jpg'"></div>
           <div class="photo-strip-item"><img src="imagesphoto3.jpg" alt="photo3"></div>
           <div class="photo-strip-item"><img src="imagesphoto4.jpg" alt="photo4"></div>
           <div class="photo-strip-item"><img src="imagesphoto5.jpg" alt="photo5"></div>
