@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
-<!-- Leaflet CSS para sa Interactive Map -->
+<!-- Leaflet CSS for Interactive Map -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 
 <style>
@@ -293,15 +293,15 @@ p.subtitle{
 
 .photo-strip{
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
   width: 100%;
   margin-bottom: 22px;
 }
 .photo-strip-item{
   width: 100%;
   aspect-ratio: 9/16;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   background: rgba(74, 22, 38, 0.5);
@@ -380,7 +380,7 @@ p.subtitle{
   margin-top: 5px;
 }
 
-/* Custom Marker Styling para sa Pictures ninyo sa Map */
+/* Custom Marker Styling for Map Images */
 .custom-map-marker {
   width: 44px;
   height: 44px;
@@ -500,7 +500,7 @@ p.subtitle{
   <section class="screen sub-screen-clickable" id="screen-letter" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <div class="sub-scroll">
-      <h1 class="title" style="font-size:clamp(1.8rem,5.5vw,2.4rem); margin-bottom:10px; text-shadow:0 2px 6px rgba(0,0,0,0.85);">My love letter</h1>
+      <h1 class="title" style="font-size:clamp(1.8rem,5.5vw,2.4rem); margin-bottom:10px; text-shadow:0 2px 6px rgba(0,0,0,0.85);">My Love Letter</h1>
       <div class="letter-text-free" id="letter-text"></div>
     </div>
   </section>
@@ -516,35 +516,37 @@ p.subtitle{
           <div class="photo-strip-item"><img src="imagesphoto4.jpg" alt="photo4" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
           <div class="photo-strip-item"><img src="imagesphoto5.jpg" alt="photo5" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
           <div class="photo-strip-item"><img src="imagesphoto6.jpg" alt="photo6" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
+          <div class="photo-strip-item"><img src="imagesphoto11.jpg" alt="photo11" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
+          <div class="photo-strip-item"><img src="imagesphoto12.jpg" alt="photo12" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
         </div>
 
         <div class="together-title">We've been together for</div>
         <div class="timer-display" id="together-timer">Calculating...</div>
 
         <div class="quotes-group">
-          <div class="quote-line">I miss you Love</div>
+          <div class="quote-line">I miss you, Love</div>
           <div class="quote-line">I'll never stop choosing you</div>
         </div>
 
         <div class="personal-note">
-          I hope you're safe as always, I'm always proud of you love, and I can't wait to spend the rest of my life with you
+          I hope you're safe as always, I'm always proud of you love, and I can't wait to spend the rest of my life with you.
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 6. INTERACTIVE MAP SCREEN (Kuala Lumpur & Bacacay) -->
+  <!-- 6. INTERACTIVE MAP SCREEN (Kuala Lumpur & Bacacay, Albay) -->
   <section class="screen sub-screen-clickable" id="screen-distance" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <div class="sub-scroll">
       <div class="map-container-card">
         <h1 class="title" style="font-size:clamp(1.6rem,4.5vw,2.2rem); margin-bottom:2px;">Our World Map</h1>
-        <p class="subtitle" style="margin-bottom:5px; font-size:0.9rem;">Tap our pictures on the map to see the distance</p>
+        <p class="subtitle" style="margin-bottom:5px; font-size:0.9rem;">Tap our pictures on the map to see our distance</p>
         
         <div id="map"></div>
 
         <div class="map-info-box" id="map-distance-text">
-          Calculating distance between Kuala Lumpur and Bacacay...
+          <b>Our Distance:</b> Around 2,800 miles apart (Kuala Lumpur to Bacacay, Albay), but our hearts beat as one! ❤️
         </div>
       </div>
     </div>
@@ -560,7 +562,7 @@ p.subtitle{
 
 </div>
 
-<!-- Leaflet JS para sa Interactive Map -->
+<!-- Leaflet JS for Interactive Map -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <script>
@@ -572,14 +574,12 @@ const CONFIG = {
 
   startDate: new Date(2025, 8, 26, 10, 13, 0),
 
-  // Coordinates para sa inyong dalawa:
-  // Partner: Kuala Lumpur, Malaysia
+  // Exact coordinates for Kuala Lumpur and Bacacay, Albay:
   partnerLoc: { lat: 3.1390, lng: 101.6869, name: "Kuala Lumpur, Malaysia (You)", img: "imagesphoto2.jpg" },
-  // Ikaw: Bacacay, Albay, Philippines
   myLoc: { lat: 13.3854, lng: 123.7295, name: "Bacacay, Albay, Philippines (Me)", img: "imagesphoto3.jpg" },
 
   letter:
-`Happy anniversary love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much. 
+`Happy anniversary, love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much. 
 
 I hope you’re always safe and doing well. Time really flies so fast, huh? It feels like just yesterday, and now we’re already celebrating another year together.
 
@@ -589,7 +589,7 @@ Thank you for staying with me through everything, for loving me, and for being p
 
 I hope we continue to choose each other, understand each other, and grow together. No matter what happens, I’ll always be rooting for you and supporting you. Here’s to more memories, more adventures, more laughs, and more years with you.
 
-I love you always Hubby. Happy anniversary!`,
+I love you always, Hubby. Happy anniversary!`,
 
   songTitle: "Special Song For You",
   songYouTubeUrl: "https://youtu.be/3-NTv0CdFCk"
@@ -603,27 +603,10 @@ document.getElementById('lock-hint').textContent = CONFIG.lockHint;
 document.getElementById('letter-text').textContent = CONFIG.letter;
 document.getElementById('song-title').textContent = CONFIG.songTitle;
 
-// Formula para makuha ang exact distance sa pagitan ng dalawang lat/lng (Haversine formula)
-function calculateDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Radius ng Earth sa km
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  return Math.round(R * c);
-}
-
-const distKm = calculateDistance(CONFIG.partnerLoc.lat, CONFIG.partnerLoc.lng, CONFIG.myLoc.lat, CONFIG.myLoc.lng);
-document.getElementById('map-distance-text').innerHTML = `<b>Distansya natin:</b> Mahigit ${distKm} kilometers ang layo, pero iisa ang ating puso! ❤️`;
-
 // Initialize Leaflet Map
 let map = null;
 function initMap() {
   if (map) return;
-  // Center map sa gitna ng Malaysia at Pilipinas
   map = L.map('map', { zoomControl: false }).setView([8.2, 112.7], 5);
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -631,7 +614,6 @@ function initMap() {
     attribution: '&copy; OpenStreetMap'
   }).addTo(map);
 
-  // Custom Icon para kay Partner (Kuala Lumpur)
   const partnerIcon = L.divIcon({
     className: 'custom-div-icon',
     html: `<img src="${CONFIG.partnerLoc.img}" class="custom-map-marker" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'50\\' height=\\'50\\'><circle cx=\\'25\\' cy=\\'25\\' r=\\'20\\' fill=\\'%237c2438\\'/></svg>'">`,
@@ -639,7 +621,6 @@ function initMap() {
     iconAnchor: [22, 22]
   });
 
-  // Custom Icon para sa iyo (Bacacay, Albay)
   const myIcon = L.divIcon({
     className: 'custom-div-icon',
     html: `<img src="${CONFIG.myLoc.img}" class="custom-map-marker" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'50\\' height=\\'50\\'><circle cx=\\'25\\' cy=\\'25\\' r=\\'20\\' fill=\\'%237c2438\\'/></svg>'">`,
@@ -647,21 +628,18 @@ function initMap() {
     iconAnchor: [22, 22]
   });
 
-  // Lagyan ng markers ang mapa
   const marker1 = L.marker([CONFIG.partnerLoc.lat, CONFIG.partnerLoc.lng], { icon: partnerIcon }).addTo(map);
-  marker1.bindPopup(`<b>${CONFIG.partnerLoc.name}</b><br>Dito ka ngayon, mahal ko.`);
+  marker1.bindPopup(`<b>${CONFIG.partnerLoc.name}</b><br>You are right here, my love.`);
 
   const marker2 = L.marker([CONFIG.myLoc.lat, CONFIG.myLoc.lng], { icon: myIcon }).addTo(map);
-  marker2.bindPopup(`<b>${CONFIG.myLoc.name}</b><br>Dito naman ako naghihintay sa iyo.`);
+  marker2.bindPopup(`<b>${CONFIG.myLoc.name}</b><br>And I am right here waiting for you.`);
 
-  // Gumuhit ng linya sa pagitan ng dalawa para makita ang koneksyon
   const latlngs = [
     [CONFIG.partnerLoc.lat, CONFIG.partnerLoc.lng],
     [CONFIG.myLoc.lat, CONFIG.myLoc.lng]
   ];
   const polyline = L.polyline(latlngs, {color: '#d8b587', weight: 3, dashArray: '5, 10'}).addTo(map);
   
-  // I-fit ang view sa dalawang markers
   map.fitBounds(polyline.getBounds(), { padding: [50, 50] });
 }
 
