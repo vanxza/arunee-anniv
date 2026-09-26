@@ -361,6 +361,19 @@ p.subtitle{
 }
 @keyframes spin{ to{ transform:rotate(360deg);} }
 
+/* Heart Burst Animation */
+.heart-burst{ position:fixed; inset:0; pointer-events:none; z-index:6; overflow:hidden; }
+.heart-burst span{
+  position:absolute; bottom:-10%;
+  font-size:1.4rem;
+  color:var(--blush-300);
+  opacity:.9;
+  animation:rise 3.2s ease-in forwards;
+}
+@keyframes rise{
+  to{ transform:translateY(-115vh) rotate(20deg); opacity:0; }
+}
+
 ::-webkit-scrollbar{ width:4px; }
 ::-webkit-scrollbar-thumb{ background:rgba(216,181,135,0.4); border-radius:4px; }
 </style>
@@ -395,7 +408,7 @@ p.subtitle{
 
   <!-- 2. LOCK -->
   <section class="screen" id="screen-lock">
-    <h1 class="title" style="font-size:clamp(1.8rem,6vw,2.6rem)">Happy Anniversary, Love!</h1>
+    <h1 class="title" style="font-size:clamp(1.8rem,6vw,2.6rem)">Happy Anniversary, Love</h1>
     <p class="subtitle" id="lock-hint">Enter the date it all began</p>
     <div class="lock-card">
       <div class="code-display" id="code-display"></div>
@@ -575,6 +588,21 @@ function shakeDots(){
   setTimeout(()=>document.querySelectorAll('.code-dot').forEach(d=>d.classList.remove('shake')), 400);
 }
 
+function heartCelebration(){
+  const burst = document.createElement('div');
+  burst.className = 'heart-burst';
+  document.body.appendChild(burst);
+  for(let i=0;i<24;i++){
+    const s = document.createElement('span');
+    s.textContent = '♥';
+    s.style.left = Math.random()*100+'%';
+    s.style.animationDelay = (Math.random()*1.2)+'s';
+    s.style.fontSize = (1+Math.random()*1.4)+'rem';
+    burst.appendChild(s);
+  }
+  setTimeout(()=>burst.remove(), 3600);
+}
+
 const digits = ['1','2','3','4','5','6','7','8','9','','0','back'];
 digits.forEach(d=>{
   const btn = document.createElement('button');
@@ -593,6 +621,7 @@ digits.forEach(d=>{
       if(entered.length === CONFIG.passcode.length){
         if(entered === CONFIG.passcode){
           startMusicOnce();
+          heartCelebration();
           setTimeout(()=> showScreen('screen-menu'), 500);
         } else {
           shakeDots();
