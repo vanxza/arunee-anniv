@@ -7,8 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
-<!-- Leaflet CSS for Interactive Map -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 
 <style>
 :root{
@@ -191,17 +189,16 @@ p.subtitle{
 
 /* ---------------- Menu ---------------- */
 .menu-grid{
-  display:flex; gap:clamp(14px,5vw,30px);
+  display:flex; gap:clamp(18px,6vw,44px);
   flex-wrap:wrap; justify-content:center;
-  max-width:580px;
+  max-width:520px;
 }
 .menu-item{
   cursor:pointer;
   display:flex; flex-direction:column; align-items:center;
-  width: 90px;
 }
 .menu-icon-img{
-  width:74px; height:74px;
+  width:84px; height:84px;
   border-radius:50%;
   object-fit:cover;
   border:2px solid var(--gold-400);
@@ -210,22 +207,12 @@ p.subtitle{
   animation:gentleFloat 2.8s ease-in-out infinite;
 }
 .menu-item:nth-child(1) .menu-icon-img{ animation-delay:0s; }
-.menu-item:nth-child(2) .menu-icon-img{ animation-delay:0.3s; }
-.menu-item:nth-child(3) .menu-icon-img{ animation-delay:0.6s; }
-.menu-item:nth-child(4) .menu-icon-img{ animation-delay:0.9s; }
-
-.menu-label{
-  font-family:'Jost', sans-serif;
-  font-size: 0.75rem;
-  color: var(--blush-300);
-  margin-top: 6px;
-  letter-spacing: 0.05em;
-  text-align: center;
-}
+.menu-item:nth-child(2) .menu-icon-img{ animation-delay:0.4s; }
+.menu-item:nth-child(3) .menu-icon-img{ animation-delay:0.8s; }
 
 @keyframes gentleFloat{
   0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-6px) rotate(2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
 }
 .menu-item:hover .menu-icon-img{
   transform: scale(1.1) translateY(-4deg);
@@ -275,7 +262,7 @@ p.subtitle{
   padding: 10px 12px 50px;
 }
 
-/* ---------------- Gallery Layout ---------------- */
+/* ---------------- Icon 1 Layout ---------------- */
 .together-card{
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
@@ -293,15 +280,15 @@ p.subtitle{
 
 .photo-strip{
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
   width: 100%;
   margin-bottom: 22px;
 }
 .photo-strip-item{
   width: 100%;
   aspect-ratio: 9/16;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   background: rgba(74, 22, 38, 0.5);
@@ -346,49 +333,6 @@ p.subtitle{
   line-height: 1.5;
   color: #f8ecee;
   max-width: 580px;
-}
-
-/* ---------------- Interactive Live Map Screen ---------------- */
-.map-container-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 18px 14px;
-  max-width: 560px;
-  width: 100%;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  border: 1px solid rgba(255,255,255,0.12);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#map {
-  width: 100%;
-  height: 320px;
-  border-radius: 14px;
-  margin: 15px 0;
-  border: 1px solid var(--gold-400);
-  z-index: 1;
-}
-
-.map-info-box {
-  font-family: 'Jost', sans-serif;
-  font-size: 0.92rem;
-  color: var(--blush-300);
-  text-align: center;
-  margin-top: 5px;
-}
-
-/* Custom Marker Styling for Live Map Images */
-.custom-map-marker {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 2px solid var(--gold-400);
-  object-fit: cover;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-  background: var(--wine-800);
 }
 
 .song-embed{
@@ -478,20 +422,13 @@ p.subtitle{
     <p class="subtitle" id="menu-subtitle">Another chapter down, forever to go</p>
     <div class="menu-grid">
       <div class="menu-item" data-target="screen-gallery">
-        <img class="menu-icon-img" src="imagesphoto7.jpg" alt="Gallery" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>📷</text></svg>'">
-        <div class="menu-label">Gallery</div>
+        <img class="menu-icon-img" src="imagesphoto7.jpg" alt="Photo 7" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>📷</text></svg>'">
       </div>
       <div class="menu-item" data-target="screen-letter">
-        <img class="menu-icon-img" src="imagesphoto8.jpg" alt="Letter" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>💌</text></svg>'">
-        <div class="menu-label">Letter</div>
-      </div>
-      <div class="menu-item" data-target="screen-distance">
-        <img class="menu-icon-img" src="imagesphoto10.jpg" alt="Map" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🗺️</text></svg>'">
-        <div class="menu-label">Live Map</div>
+        <img class="menu-icon-img" src="imagesphoto8.jpg" alt="Photo 8" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>💌</text></svg>'">
       </div>
       <div class="menu-item" data-target="screen-song">
-        <img class="menu-icon-img" src="imagesphoto9.jpg" alt="Song" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🎵</text></svg>'">
-        <div class="menu-label">Our Song</div>
+        <img class="menu-icon-img" src="imagesphoto9.jpg" alt="Photo 9" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%237c2438\'/><text x=\'50%\' y=\'50%\' fill=\'#fff\' font-size=\'40\' text-anchor=\'middle\' dominant-baseline=\'central\'>🎵</text></svg>'">
       </div>
     </div>
   </section>
@@ -500,12 +437,12 @@ p.subtitle{
   <section class="screen sub-screen-clickable" id="screen-letter" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <div class="sub-scroll">
-      <h1 class="title" style="font-size:clamp(1.8rem,5.5vw,2.4rem); margin-bottom:10px; text-shadow:0 2px 6px rgba(0,0,0,0.85);">My Love Letter</h1>
+      <h1 class="title" style="font-size:clamp(1.8rem,5.5vw,2.4rem); margin-bottom:10px; text-shadow:0 2px 6px rgba(0,0,0,0.85);">My love letter</h1>
       <div class="letter-text-free" id="letter-text"></div>
     </div>
   </section>
 
-  <!-- 5. GALLERY SCREEN -->
+  <!-- 5. ICON 1 SCREEN -->
   <section class="screen sub-screen-clickable" id="screen-gallery" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <div class="sub-scroll">
@@ -516,43 +453,24 @@ p.subtitle{
           <div class="photo-strip-item"><img src="imagesphoto4.jpg" alt="photo4" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
           <div class="photo-strip-item"><img src="imagesphoto5.jpg" alt="photo5" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
           <div class="photo-strip-item"><img src="imagesphoto6.jpg" alt="photo6" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
-          <div class="photo-strip-item"><img src="imagesphoto11.jpg" alt="photo11" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
-          <div class="photo-strip-item"><img src="imagesphoto12.jpg" alt="photo12" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'350\'><rect width=\'100%\' height=\'100%\' fill=\'%234a1626\'/></svg>'"></div>
         </div>
 
         <div class="together-title">We've been together for</div>
         <div class="timer-display" id="together-timer">Calculating...</div>
 
         <div class="quotes-group">
-          <div class="quote-line">I miss you, Love</div>
+          <div class="quote-line">I miss you Love</div>
           <div class="quote-line">I'll never stop choosing you</div>
         </div>
 
         <div class="personal-note">
-          I hope you're safe as always, I'm always proud of you love, and I can't wait to spend the rest of my life with you.
+         I hope youre safe as always, I'm always proud of you love, and I cant wait to spend the rest of my life with you 𖹭
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 6. LIVE GPS MAP SCREEN -->
-  <section class="screen sub-screen-clickable" id="screen-distance" data-back="screen-menu">
-    <div class="back-btn" data-back="screen-menu">&#8592;</div>
-    <div class="sub-scroll">
-      <div class="map-container-card">
-        <h1 class="title" style="font-size:clamp(1.6rem,4.5vw,2.2rem); margin-bottom:2px;">Our Live GPS Map</h1>
-        <p class="subtitle" style="margin-bottom:5px; font-size:0.88rem;">Detecting your exact real-time location via GPS...</p>
-        
-        <div id="map"></div>
-
-        <div class="map-info-box" id="map-distance-text">
-          <b>Live Distance:</b> Finding your GPS position...
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. SONG -->
+  <!-- 6. SONG -->
   <section class="screen sub-screen-clickable" id="screen-song" data-back="screen-menu">
     <div class="back-btn" data-back="screen-menu">&#8592;</div>
     <h1 class="title" id="song-title" style="font-size:clamp(1.6rem,5vw,2.2rem)">Our Special Song</h1>
@@ -561,9 +479,6 @@ p.subtitle{
   </section>
 
 </div>
-
-<!-- Leaflet JS for Interactive Map -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <script>
 const CONFIG = {
@@ -574,25 +489,16 @@ const CONFIG = {
 
   startDate: new Date(2025, 8, 26, 10, 13, 0),
 
-  // Fallback coordinates (Bacacay, Albay and Kuala Lumpur) if GPS is denied
-  fallbackMyLoc: { lat: 13.3854, lng: 123.7295, name: "Bacacay, Albay, PH" },
-  fallbackPartnerLoc: { lat: 3.1390, lng: 101.6869, name: "Kuala Lumpur, MY" },
-
-  myImg: "imagesphoto3.jpg",     // Litrato mo
-  partnerImg: "imagesphoto2.jpg", // Litrato nya (11 or 12 pwede rin palitan mo dito)
-
   letter:
-`Happy anniversary, love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much. 
-
+`Happy anniversary love! What an amazing year it has been with you, through all the ups and downs. Cheers to more years together! I love you so so much. 
 I hope you’re always safe and doing well. Time really flies so fast, huh? It feels like just yesterday, and now we’re already celebrating another year together.
-
 I’m so proud of how much you’ve grown and improved throughout this year. I’ve seen how hard you’ve worked, how you’ve handled everything, and how you’ve kept going even when things weren’t easy. I’m really proud of the person you’re becoming.
 
 Thank you for staying with me through everything, for loving me, and for being part of my life. I’m grateful for every memory we’ve made, every laugh, every late-night call, and even the difficult moments because they helped us grow together.
 
 I hope we continue to choose each other, understand each other, and grow together. No matter what happens, I’ll always be rooting for you and supporting you. Here’s to more memories, more adventures, more laughs, and more years with you.
 
-I love you always, Hubby. Happy anniversary!`,
+I love you always Hubby. Happy anniversary!`,
 
   songTitle: "Special Song For You",
   songYouTubeUrl: "https://youtu.be/3-NTv0CdFCk"
@@ -605,93 +511,6 @@ document.getElementById('menu-subtitle').textContent = CONFIG.subtitle;
 document.getElementById('lock-hint').textContent = CONFIG.lockHint;
 document.getElementById('letter-text').textContent = CONFIG.letter;
 document.getElementById('song-title').textContent = CONFIG.songTitle;
-
-// Helper: Compute distance in miles between two lat/lng points
-function calculateDistance(lat1, lon1, lat2, lon2) {
-  const R = 3958.8; // Radius of the earth in miles
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  return Math.round(R * c);
-}
-
-// Initialize Leaflet Live Map via GPS
-let map = null;
-let myMarker = null;
-let partnerMarker = null;
-let polyline = null;
-
-function initLiveMap() {
-  if (!map) {
-    map = L.map('map', { zoomControl: false }).setView([8.2, 112.7], 4);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      maxZoom: 19,
-      attribution: '&copy; OpenStreetMap'
-    }).addTo(map);
-  }
-
-  // Get current user's live GPS coordinates using browser Geolocation API
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const userLat = position.coords.latitude;
-        const userLng = position.coords.longitude;
-        updateMapMarkers(userLat, userLng);
-      },
-      (error) => {
-        console.warn("GPS permission denied or unavailable. Using default Bacacay & KL coordinates.");
-        // Fallback to Bacacay, Albay if permission is blocked
-        updateMapMarkers(CONFIG.fallbackMyLoc.lat, CONFIG.fallbackMyLoc.lng);
-      },
-      { timeout: 10000, enableHighAccuracy: true }
-    );
-  } else {
-    updateMapMarkers(CONFIG.fallbackMyLoc.lat, CONFIG.fallbackMyLoc.lng);
-  }
-}
-
-function updateMapMarkers(myLat, myLng) {
-  // Assuming the other person is at Kuala Lumpur (or you can customize)
-  const partnerLat = CONFIG.fallbackPartnerLoc.lat;
-  const partnerLng = CONFIG.fallbackPartnerLoc.lng;
-
-  const myIcon = L.divIcon({
-    className: 'custom-div-icon',
-    html: `<img src="${CONFIG.myImg}" class="custom-map-marker" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'50\\' height=\\'50\\'><circle cx=\\'25\\' cy=\\'25\\' r=\\'20\\' fill=\\'%237c2438\\'/></svg>'">`,
-    iconSize: [44, 44],
-    iconAnchor: [22, 22]
-  });
-
-  const partnerIcon = L.divIcon({
-    className: 'custom-div-icon',
-    html: `<img src="${CONFIG.partnerImg}" class="custom-map-marker" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'50\\' height=\\'50\\'><circle cx=\\'25\\' cy=\\'25\\' r=\\'20\\' fill=\\'%237c2438\\'/></svg>'">`,
-    iconSize: [44, 44],
-    iconAnchor: [22, 22]
-  });
-
-  if (myMarker) map.removeLayer(myMarker);
-  if (partnerMarker) map.removeLayer(partnerMarker);
-  if (polyline) map.removeLayer(polyline);
-
-  myMarker = L.marker([myLat, myLng], { icon: myIcon }).addTo(map)
-    .bindPopup(`<b>You (Live GPS)</b><br>Lat: ${myLat.toFixed(2)}, Lng: ${myLng.toFixed(2)}`);
-
-  partnerMarker = L.marker([partnerLat, partnerLng], { icon: partnerIcon }).addTo(map)
-    .bindPopup(`<b>Partner (Kuala Lumpur)</b>`);
-
-  const latlngs = [[myLat, myLng], [partnerLat, partnerLng]];
-  polyline = L.polyline(latlngs, {color: '#d8b587', weight: 3, dashArray: '5, 10'}).addTo(map);
-
-  map.fitBounds(polyline.getBounds(), { padding: [50, 50] });
-
-  const distMiles = calculateDistance(myLat, myLng, partnerLat, partnerLng);
-  document.getElementById('map-distance-text').innerHTML = 
-    `<b>Live Distance:</b> Around <b>${distMiles.toLocaleString()} miles</b> apart right now, but our hearts beat as one! ❤️`;
-}
 
 function youtubeId(url){
   const m = url.match(/(?:youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{11})/);
@@ -712,13 +531,6 @@ function startMusicOnce() {
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-
-  if (id === 'screen-distance') {
-    setTimeout(() => {
-      initLiveMap();
-      if(map) map.invalidateSize();
-    }, 200);
-  }
 
   if (id === 'screen-song') {
     if (ytid && !songEmbed.querySelector('iframe')) {
@@ -742,7 +554,7 @@ document.querySelectorAll('.back-btn').forEach(btn=>{
 
 document.querySelectorAll('.sub-screen-clickable').forEach(screen=>{
   screen.addEventListener('click', (e)=>{
-    if(e.target.tagName.toLowerCase() === 'iframe' || e.target.closest('.leaflet-container')) return;
+    if(e.target.tagName.toLowerCase() === 'iframe') return;
     showScreen(screen.dataset.back);
   });
 });
